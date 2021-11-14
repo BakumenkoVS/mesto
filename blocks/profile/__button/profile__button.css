@@ -1,0 +1,12 @@
+.profile__button {
+   align-self: center;
+   background-color: transparent;
+   background-repeat: no-repeat;
+   cursor: pointer;
+   background-position: center;
+   width: 150px;
+   height: 50px;
+   border: 2px solid #FFFFFF;
+   background-image: url(../../../images/profile__button.svg);
+   margin-left: auto;
+}

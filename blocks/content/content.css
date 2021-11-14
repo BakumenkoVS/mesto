@@ -1,0 +1,6 @@
+.content {
+   max-width: 880px;
+   width: 100%;
+   min-width: 320px;
+   box-sizing: border-box;
+}
