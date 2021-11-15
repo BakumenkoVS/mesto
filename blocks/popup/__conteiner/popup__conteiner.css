@@ -1,0 +1,9 @@
+.popup__conteiner {
+   position: relative;
+   width: 430px;
+   background-color: white;
+   border-radius: 10px;
+   z-index: 2;
+   padding:36px;
+   box-sizing: border-box;
+}

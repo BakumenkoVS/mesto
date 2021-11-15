@@ -8,8 +8,7 @@
    <link rel="stylesheet" href="./pages/index.css">
    <title>Путешествия по России</title>
 </head>
-<body>
-   <div class="page">
+<body class="page">
       <header class="header">
          <img src="./images/logo.svg" alt="Места России" class="logo">
       </header>
@@ -21,7 +20,7 @@
                   <h1 class="profile__title">
                      Жак-Ив Кусто
                   </h1>
-                  <button class="profile__edit"></button>
+                  <button class="profile__edit profile__edit_type_active"></button>
                </div>   
                   <p class="profile__subtitle">
                      Исследователь океана
@@ -31,43 +30,78 @@
          </section>
          <section class="elements">
             <div class="card">
-               <img src="./images/Karachaevsk.png" alt="" class="card__img">
+               <img src="./images/Karachaevsk.png" alt="Старинная церковь" class="card__img">
                <div class="card__info">
                   <h2 class="card__title">
                      Карачаевск
                   </h2>
-                  <img src="./images/heart.svg" alt="Не закрашенное сердечко">
+                  <button class="card__heart" type="button"></button>
                </div>
             </div>
             <div class="card">
-               <img src="./images/Karachaevsk.png" alt="" class="card__img">
+               <img src="./images/river.jpg" alt="Извилистая река" class="card__img">
                <div class="card__info">
                   <h2 class="card__title">
-
+                     Извилистая река
                   </h2>
-                  <img src="./images/heart.svg" alt="Не закрашенное сердечко">
+                  <button class="card__heart" type="button"></button>
                </div>
             </div>
             <div class="card">
-               <img src="./images/Karachaevsk.png" alt="" class="card__img">
+               <img src="./images/dog.jpg" alt="Французский бульдог" class="card__img">
                <div class="card__info">
                   <h2 class="card__title">
-
+                     Очень красивая собачка
                   </h2>
-                  <img src="./images/heart.svg" alt="Не закрашенное сердечко">
+                  <button class="card__heart" type="button"></button>
                </div>
             </div>
             <div class="card">
-               <img src="./images/Karachaevsk.png" alt="" class="card__img">
+               <img src="./images/mountains.jpg" alt="Горы" class="card__img">
                <div class="card__info">
                   <h2 class="card__title">
-
+                     Заснеженные горы
                   </h2>
-                  <img src="./images/heart.svg" alt="Не закрашенное сердечко">
+                  <button class="card__heart" type="button"></button>
+               </div>
+            </div>
+            <div class="card">
+               <img src="./images/car.jpg" alt="Машина" class="card__img">
+               <div class="card__info">
+                  <h2 class="card__title">
+                     Машина
+                  </h2>
+                  <button class="card__heart" type="button"></button>
+               </div>
+            </div>
+            <div class="card">
+               <img src="./images/mountains.jpg" alt="Горы" class="card__img">
+               <div class="card__info">
+                  <h2 class="card__title">
+                     Заснеженные горы
+                  </h2>
+                  <button class="card__heart" type="button"></button>
                </div>
             </div>
          </section>
       </main>
+      <footer class="footer">
+         <p class="footer__title">&copy;2021. Бакуменко Владислав</p>
+      </footer>
+   <div class="popup">
+      <form name="form" class="popup__conteiner">
+         <button class="popup__button-close"></button>
+         <h2 class="popup__title">Редактировать профиль</h2>
+         <fieldset class="popup__information">
+            <input type="text" class="popup__name" value="Жак-Ив Кусто" name="name">
+            <input type="text" class="popup__profession" value="Исследователь океана" name="profession">
+         </fieldset>
+         <button class="popup__button-save">
+            Сохранить
+         </button>
+      </form>
    </div>
+   <script src="./scripts/index.js">
+   </script>
 </body>
 </html>

@@ -9,4 +9,9 @@
    border: 1px solid #FFFFFF;
    background-image: url(../../../images/edit.svg);
    margin: 8px 0 0 18px;
+   transition: opacity 0.5s linear;
+}
+
+.profile__edit:hover {
+   opacity: 0.5;
 }

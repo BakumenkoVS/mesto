@@ -9,4 +9,9 @@
    border: 2px solid #FFFFFF;
    background-image: url(../../../images/profile__button.svg);
    margin-left: auto;
+   transition: opacity 0.5s linear;
+}
+
+.profile__button:hover {
+   opacity: 0.5;
 }
