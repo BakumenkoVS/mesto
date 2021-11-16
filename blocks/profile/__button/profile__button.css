@@ -4,14 +4,21 @@
    background-repeat: no-repeat;
    cursor: pointer;
    background-position: center;
-   width: 150px;
+   min-width: 150px;
    height: 50px;
    border: 2px solid #FFFFFF;
    background-image: url(../../../images/profile__button.svg);
    margin-left: auto;
    transition: opacity 0.5s linear;
+   padding: 0;
 }
 
 .profile__button:hover {
    opacity: 0.5;
+}
+
+@media screen and (max-width: 700px) {
+   .profile__button {
+      margin: 36px auto 0;
+   }
 }
