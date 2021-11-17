@@ -11,4 +11,4 @@
 *БЭМ
 *JS
 **Ссылка GitHub Pages**
-https://bakumenkovs.github.io/russian-travel/index.html
+https://bakumenkovs.github.io/mesto/index.html
