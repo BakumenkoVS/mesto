@@ -1,4 +1,5 @@
 .profile__edit {
+   padding: 0;
    align-self: center;
    background-color: transparent;
    background-repeat: no-repeat;
@@ -20,6 +21,6 @@
    .profile__edit {
       width: 18px;
       height: 18px;
-      margin: 0 0 10px 10px;
+      margin: 15px 0 0 10px;
    }
 }
