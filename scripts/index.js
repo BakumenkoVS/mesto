@@ -1,6 +1,6 @@
 console.log('louded');
 
-const editActive = document.querySelector('.profile__edit_type_active');
+const editActive = document.querySelector('.profile__edit');
 const popup = document.querySelector('.popup');
 const popupCloseButton = popup.querySelector('.popup__button-close');
 const formElement = document.querySelector('.popup__conteiner');
@@ -13,6 +13,8 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 
 const open = () => {
    popup.classList.add('popup__opened');
+   nameInput.value = profileTitle.textContent;
+   professionInput.value = profileSubtitle.textContent;
 }
 
 const close = () => {

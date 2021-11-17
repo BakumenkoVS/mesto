@@ -1,7 +1,8 @@
 .elements {
    display: grid;
    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
-   grid-gap: 17px;
+   grid-column-gap: 17px;
+   grid-row-gap: 20px;
    color: #000;
 }
 
