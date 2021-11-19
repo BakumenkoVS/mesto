@@ -10,14 +10,14 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 
 //Функция открывает popup и записывает инпутам значения введенные в тайтл и субтайтл
 const popupOpen = () => {
-   popup.classList.add('popup_type_opened');
+   popup.classList.add('popup_opened');
    nameInput.value = profileTitle.textContent;
    professionInput.value = profileSubtitle.textContent;
 }
 
 //Функция закрывает popup по нажатию на крестик 
 const popupClose = () => {
-   popup.classList.remove('popup_type_opened');
+   popup.classList.remove('popup_opened');
 }
 //Функция присваивает введенык значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 
