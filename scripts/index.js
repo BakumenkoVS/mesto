@@ -8,6 +8,10 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const cardsTemplate = document.querySelector('.template').content;
 const elementsList = document.querySelector('.elements');
+const popupImg = document.querySelector('.popup-img')
+const profileButton = document.querySelector('.profile__button');
+const popupImgCloseButton = popupImg.querySelector('.popup__button-close_img'); 
+
 //Переменная массива данных для карточек 
 const initialCards = [
    {
@@ -36,21 +40,20 @@ const initialCards = [
    }
  ];
 
+//Функция динамической загрузки карточек на страницу
 initialCards.forEach(function (element) {
   const cardsElement = cardsTemplate.cloneNode(true);
-
+  //Присваивание значениям template данных из массива initialCards
   cardsElement.querySelector('.card__title').textContent = element.name;
   cardsElement.querySelector('.card__img').src = element.link;
-
+  const cardHert = cardsElement.querySelector('.card__heart');
+  cardHert.addEventListener('click', function (evt) {
+    //функция оброботчик данных клика по лайку   
+    evt.target.classList.toggle('card__heart_aktiv');
+  });
   elementsList.append(cardsElement);
+
 });
-
-
-// const cardHert = document.querySelectorAll('.card__heart');
-// console.log(cardHert);
-//  cardHert.addEventListener('click', function (evt) {
-//    evt.target.classList.toggle('card__heart_aktiv');
-//  });
 
 //Функция открывает popup и записывает инпутам значения введенные в тайтл и субтайтл
 const popupOpen = () => {
@@ -59,9 +62,17 @@ const popupOpen = () => {
    professionInput.value = profileSubtitle.textContent;
 }
 
+const popupImgOpen = () => {
+  popupImg.classList.add('popup_opened');
+}
+
 //Функция закрывает popup по нажатию на крестик 
 const popupClose = () => {
    popup.classList.remove('popup_opened');
+}
+
+const popupImgClose = () => {
+  popupImg.classList.remove('popup_opened');
 }
 //Функция присваивает введенык значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 
@@ -76,3 +87,5 @@ function formSubmitHandler (evt) {
 formElement.addEventListener('submit', formSubmitHandler);
 editActive.addEventListener('click', popupOpen);
 popupCloseButton.addEventListener('click', popupClose);
+profileButton.addEventListener('click', popupImgOpen);
+popupImgCloseButton.addEventListener('click', popupImgClose);
