@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,34 +9,35 @@
    <link rel="stylesheet" href="./pages/index.css">
    <title>Место</title>
 </head>
+
 <body class="page">
-      <header class="header">
-         <img src="./images/logo.svg" alt="Места России" class="logo">
-      </header>
-      <main class="content">
-         <section class="profile">
-            <img src="./images/avatar.png" alt="Фото человека" class="profile__avatar">
-            <div class="profile__card">
-               <div class="profile__information">
-                  <h1 class="profile__title">Жак-Ив Кусто</h1>
-                  <button class="profile__edit" type="button"></button>
-               </div>   
-                  <p class="profile__subtitle">Исследователь океана</p>
+   <header class="header">
+      <img src="./images/logo.svg" alt="Места России" class="logo">
+   </header>
+   <main class="content">
+      <section class="profile">
+         <img src="./images/avatar.png" alt="Фото человека" class="profile__avatar">
+         <div class="profile__card">
+            <div class="profile__information">
+               <h1 class="profile__title">Жак-Ив Кусто</h1>
+               <button class="profile__edit" type="button"></button>
             </div>
-            <button type="button" class="profile__button"></button>
-         </section>
-         <section class="elements">
-            
-         </section>
-      </main>
-      <footer class="footer">
-         <p class="footer__title">&copy;2021. Бакуменко Владислав</p>
-      </footer>
-   <div class="popup">
+            <p class="profile__subtitle">Исследователь океана</p>
+         </div>
+         <button type="button" class="profile__button"></button>
+      </section>
+      <section class="elements">
+
+      </section>
+   </main>
+   <footer class="footer">
+      <p class="footer__title">&copy;2021. Бакуменко Владислав</p>
+   </footer>
+   <div class="popup popup-name">
       <div class="popup__conteiner">
          <h2 class="popup__title">Редактировать профиль</h2>
          <form name="form">
-            <button class="popup__button-close" type="button"></button>
+            <button class="popup__button-close x" type="button"></button>
             <fieldset class="popup__information">
                <input type="text" class="popup__input popup__input_value_name" value="" name="name">
                <input type="text" class="popup__input popup__input_value_profession" value="" name="profession">
@@ -46,14 +48,14 @@
          </form>
       </div>
    </div>
-   <div class="popup popup-img">
-      <div class="popup__conteiner">
+   <div class="popup popup_img">
+      <div class="popup__conteiner popup__conteiner_img">
          <h2 class="popup__title">Новое место</h2>
          <form name="form">
             <button class="popup__button-close popup__button-close_img" type="button"></button>
             <fieldset class="popup__information">
-               <input type="text" class="popup__input popup__input_value_mesto" value="" name="mesto">
-               <input type="text" class="popup__input popup__input_value_image" value="" name="image">
+               <input type="text" class="popup__input popup__input_value_mesto"  placeholder='Название' value="" name="mesto">
+               <input type="text" class="popup__input popup__input_value_image" placeholder='Ссылка на картинку' value="" name="image">
             </fieldset>
             <button type='submit' class="popup__button-save">
                Сохранить
@@ -66,7 +68,7 @@
          <img src="" alt="Горы в снегу" class="card__img">
          <div class="card__info">
             <h2 class="card__title">
-               
+
             </h2>
             <button class="card__heart" type="button" aria-label="Лайк"></button>
          </div>
@@ -75,4 +77,5 @@
    <script src="./scripts/index.js">
    </script>
 </body>
+
 </html>

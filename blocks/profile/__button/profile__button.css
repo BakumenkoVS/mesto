@@ -26,3 +26,9 @@
       background-size: 16px;
    }
 }
+
+@media screen and (max-width: 618px) {
+   .profile__button {
+      max-width: 282px;
+   }
+}
