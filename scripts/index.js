@@ -12,7 +12,10 @@ const popupImg = document.querySelector('.popup_img')
 const profileButton = document.querySelector('.profile__button');
 const popupImgCloseButton = popupImg.querySelector('.popup__button-close_img');
 const formElementImg = popupImg.querySelector('.popup__conteiner_img');
-
+const elementsCard = cardsTemplate.querySelector('.card');
+const cardDelete = cardsTemplate.querySelector('.card__delete');
+const mestoValue = popupImg.querySelector('.popup__input_value_mesto');
+const imageValue = popupImg.querySelector('.popup__input_value_image');
 //Переменная массива данных для карточек 
 const initialCards = [
   {
@@ -41,33 +44,49 @@ const initialCards = [
   }
 ];
 
-// function formSubmitHandlerImg(evt) {
-//   evt.preventDefault();
-//   const mestoValue = popupImg.querySelector('.popup__input_value_mesto');
-//   const imageValue = popupImg.querySelector('.popup__input_value_image');
-//   initialCards.unshift({
-//     name: mestoValue.value,
-//     link: imageValue.value
-//   });
-//   popupImg.classList.remove('popup_opened');
+function render() {
+  const html = initialCards.map((item) => { return getItem(item); 
   
-// }
-
+  });
+  elementsList.append(...html);
+}
+render();
 //Функция динамической загрузки карточек на страницу
-initialCards.forEach(function (element) {
+function getItem (item) {
   const cardsElement = cardsTemplate.cloneNode(true);
   //Присваивание значениям template данных из массива initialCards
-  cardsElement.querySelector('.card__title').textContent = element.name;
-  cardsElement.querySelector('.card__img').src = element.link;
+  cardsElement.querySelector('.card__title').textContent = item.name;
+  cardsElement.querySelector('.card__img').src = item.link;
+
   const cardHert = cardsElement.querySelector('.card__heart');
+  
   cardHert.addEventListener('click', function (evt) {
-    //функция оброботчик данных клика по лайку   
     evt.target.classList.toggle('card__heart_aktiv');
   });
-  elementsList.append(cardsElement);
-});
+
+  const cardDelete = cardsElement.querySelector('.card__delete');
+  
+  cardDelete.addEventListener('click', handleDelete);
+  return cardsElement;
+};
 
 
+function handleAdd (evt) {
+  evt.preventDefault();
+  const inputText = mestoValue.value;
+  const inputSrc = imageValue.value;
+  const cardItem = getItem({name: inputText, link: inputSrc});
+  elementsList.prepend(cardItem);
+  mestoValue.value = '';
+  imageValue.value = '';
+  popupImg.classList.remove('popup_opened');
+}
+
+function  handleDelete(evt) {
+  const targetEl = evt.target;
+  const cardItem = targetEl.closest('.card');
+  cardItem.remove();
+}
 
 //Функция открывает popup и записывает инпутам значения введенные в тайтл и субтайтл
 
@@ -90,22 +109,6 @@ const popupClose = (evt) => {
     popup.classList.remove('popup_opened');
 }
 
-//Функция добовление карточек 
-function addCard(x, y) {
-  elementsList.insertAdjacentHTML('afterBegin', `
-    <article class="card">
-      <img src="${y}" alt="Горы в снегу" class="card__img">
-      <div class="card__info">
-        <h2 class="card__title">
-          ${x}
-        </h2>
-        <button class="card__heart" type="button" aria-label="Лайк"></button>
-      </div>
-    </article>
-  `);
-}
-
-
 //Функция присваивает введенык значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 
 function formSubmitHandler(evt) {
@@ -114,35 +117,12 @@ function formSubmitHandler(evt) {
   profileSubtitle.textContent = professionInput.value;
   popup.classList.remove('popup_opened');
 }
-//Функция для добовления новых карточек на страницу 
-function formSubmitHandlerImg(evt) {
-  evt.preventDefault();
-  const mestoValue = popupImg.querySelector('.popup__input_value_mesto');
-  const imageValue = popupImg.querySelector('.popup__input_value_image');
-  elementsList.insertAdjacentHTML('afterBegin', `
-    <article class="card">
-      <img src="${imageValue.value}" alt="Горы в снегу" class="card__img">
-      <div class="card__info">
-        <h2 class="card__title">
-          ${mestoValue.value}
-        </h2>
-        <button class="card__heart" type="button" aria-label="Лайк"></button>
-      </div>
-    </article>
-  `);
-  const cardHert = document.querySelector('.card__heart');
-  cardHert.addEventListener('click', function (evt) {
-    //функция оброботчик данных клика по лайку   
-    evt.target.classList.toggle('card__heart_aktiv');
-  });
-  popupImg.classList.remove('popup_opened');
-}
 
-console.log(initialCards);
+
 //Далее прописаны считыватели событий 
 formElement.addEventListener('submit', formSubmitHandler);
 editActive.addEventListener('click', popupOpen);
 profileButton.addEventListener('click', popupOpen);
 popupCloseButton.addEventListener('click', popupClose);
 popupImgCloseButton.addEventListener('click', popupClose);
-formElementImg.addEventListener('submit', formSubmitHandlerImg);
+formElementImg.addEventListener('submit', handleAdd);
