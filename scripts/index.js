@@ -8,7 +8,7 @@ const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const cardsTemplate = document.querySelector('.template').content;
 const elementsList = document.querySelector('.elements');
-const popupImg = document.querySelector('.popup_img')
+const popupImg = document.querySelector('.popup_type_img')
 const profileButton = document.querySelector('.profile__button');
 const popupImgCloseButton = popupImg.querySelector('.popup__button-close_img');
 const formElementImg = popupImg.querySelector('.popup__conteiner_img');
@@ -59,13 +59,13 @@ function getItem (item) {
   cardsElement.querySelector('.card__img').src = item.link;
 
   const cardHert = cardsElement.querySelector('.card__heart');
-  
+  //Функция проставления лайков 
   cardHert.addEventListener('click', function (evt) {
     evt.target.classList.toggle('card__heart_aktiv');
   });
 
   const cardDelete = cardsElement.querySelector('.card__delete');
-  
+  //Считыватель события удаления карточек  
   cardDelete.addEventListener('click', handleDelete);
   return cardsElement;
 };
