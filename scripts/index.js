@@ -67,10 +67,14 @@ function getItem (item) {
   const cardDelete = cardsElement.querySelector('.card__delete');
   //Считыватель события удаления карточек  
   cardDelete.addEventListener('click', handleDelete);
+  const popupPicture = document.querySelector('.popup__picture');
+  popupPicture.addEventListener('click', function (item) {
+
+  })
   return cardsElement;
 };
 
-
+//функция для добавления карточек 
 function handleAdd (evt) {
   evt.preventDefault();
   const inputText = mestoValue.value;
@@ -82,6 +86,7 @@ function handleAdd (evt) {
   popupImg.classList.remove('popup_opened');
 }
 
+//Функция для удаления карточек
 function  handleDelete(evt) {
   const targetEl = evt.target;
   const cardItem = targetEl.closest('.card');
@@ -89,7 +94,6 @@ function  handleDelete(evt) {
 }
 
 //Функция открывает popup и записывает инпутам значения введенные в тайтл и субтайтл
-
 const popupOpen = (evt) => {
   if (evt.target.classList.contains('profile__edit')) {
     popup.classList.add('popup_opened');
