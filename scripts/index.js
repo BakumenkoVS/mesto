@@ -1,5 +1,4 @@
 const editActive = document.querySelector('.profile__edit');
-const popup = document.querySelector('.popup');
 const formElement = document.querySelector('.popup__conteiner');
 const nameInput = formElement.querySelector('.popup__input_value_name');
 const professionInput = formElement.querySelector('.popup__input_value_profession');
@@ -43,13 +42,7 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-//Функция динамической загрузки карточек на страницу
-function render() {
-  const html = initialCards.map((item) => { return getItem(item);
-  });
-  elementsList.append(...html);
-}
-render();
+
 //Функция создания карточек 
 function getItem (item) {
   const cardsElement = cardsTemplate.cloneNode(true);
@@ -77,11 +70,19 @@ function getItem (item) {
     document.querySelector('.popup__subtitle').textContent = cardName.textContent
     popupPictureImg.src = cardImg.src
     popupPictureImg.alt = cardName.textContent
-    popupOpen(popupPicture);
+    openPopup(popupPicture);
   });
   
   return cardsElement;
 };
+
+//Функция динамической загрузки карточек на страницу
+function render() {
+  const html = initialCards.map((item) => { return getItem(item);
+  });
+  elementsList.append(...html);
+}
+render();
 
 //функция для добавления карточек 
 function handleAdd (evt) {
@@ -90,9 +91,9 @@ function handleAdd (evt) {
   const inputSrc = imageValue.value;
   const cardItem = getItem({name: inputText, link: inputSrc});
   elementsList.prepend(cardItem);
+  closePopup(popupImg);
   mestoValue.value = '';
   imageValue.value = '';
-  popupImg.classList.remove('popup_opened');
 }
 
 //Функция для удаления карточек
@@ -103,43 +104,43 @@ function  handleDelete(evt) {
 }
 
 //Функция для открытия попапа
-function popupOpen(popupType) {
+function openPopup(popupType) {
   popupType.classList.add('popup_opened');
 }
 
 //Функция для закрытия попапа
-function popupClose(popupType) {
+function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
 }
 
 //Функция присваивает введенык значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 
-function formSubmitHandler(evt) {
+function submitformHandler(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = professionInput.value;
-  popup.classList.remove('popup_opened');
+  closePopup(popupName);
 }
 
 //Цикл for который на каждую строку массива вешает слушатель закрытия попапа по наатию на крестик 
 for (i = 0; i < popupCloseButton.length; i++) {
   popupCloseButton[i].addEventListener('click', function(evt) { 
-    popupClose(evt.target.closest('.popup'));
+    closePopup(evt.target.closest('.popup'));
   })
 }
 
 //Далее прописаны считыватели событий 
-formElement.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', submitformHandler);
 
 formElementImg.addEventListener('submit', handleAdd);
 //Добавляем слушатель на кнопку эдит (открывает попап для изменения тайтла и субтайтла)
 editActive.addEventListener('click', function() {
-  popupOpen(popupName); // вызываю функцию открытия попапа передавая аргументом тип попапа
   nameInput.value = profileTitle.textContent;          //присваивание инпутам значения которые в момент 
   professionInput.value = profileSubtitle.textContent; //открытия находятся в текстовых значениях тайтла и субтайтла
+  openPopup(popupName); // вызываю функцию открытия попапа передавая аргументом тип попапа
 })
 
 //Добавляем слушатель на кнопку profile__button (открывает попап добавления новых карточек)
 profileButton.addEventListener('click', function() {
-  popupOpen(popupImg);
+  openPopup(popupImg);
 });
