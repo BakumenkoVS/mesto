@@ -7,7 +7,9 @@
    <meta name="description" content="Путешествия по России">
    <meta name="author" content="Владислав">
    <link rel="stylesheet" href="./pages/index.css">
+   <script src="./scripts/validate.js"  defer></script>
    <script src="./scripts/index.js" defer></script>
+   
    <title>Место</title>
 </head>
 
@@ -36,13 +38,15 @@
    <div class="popup popup_type_name">
       <div class="popup__conteiner">
          <h2 class="popup__title">Редактировать профиль</h2>
-         <form name="form">
+         <form name="form" class="popup__form">
             <button class="popup__button-close" type="button"></button>
             <fieldset class="popup__information">
-               <input type="text" class="popup__input popup__input_value_name" value="" name="name">
-               <input type="text" class="popup__input popup__input_value_profession" value="" name="profession">
+               <input id="name" type="text" class="popup__input popup__input_value_name" value="" name="name" required minlength="2" maxlength="40">
+               <span id='name-error' class="error"></span>
+               <input id="profession" type="text" class="popup__input popup__input_value_profession" value="" name="profession" required minlength="2" maxlength="200">
+               <span id='profession-error' class="error"></span>
             </fieldset>
-            <button type='submit' class="popup__button-save">
+            <button type='submit' class="popup__button">
                Сохранить
             </button>
          </form>
@@ -51,13 +55,15 @@
    <div class="popup popup_type_img">
       <div class="popup__conteiner popup__conteiner_img">
          <h2 class="popup__title">Новое место</h2>
-         <form name="form">
+         <form name="form" class="popup__form">
             <button class="popup__button-close" type="button"></button>
             <fieldset class="popup__information">
-               <input type="text" class="popup__input popup__input_value_mesto"  placeholder='Название' value="" name="mesto">
-               <input type="text" class="popup__input popup__input_value_image" placeholder='Ссылка на картинку' value="" name="image">
+               <input id="mesto" type="text" class="popup__input popup__input_value_mesto"  placeholder='Название' value="" name="mesto" required minlength="2" maxlength="30">
+               <span id='mesto-error' class="error"></span>
+               <input id="image" type="url" class="popup__input popup__input_value_image" placeholder='Ссылка на картинку' value="" name="image" required>
+               <span id='image-error' class="error"></span>
             </fieldset>
-            <button type='submit' class="popup__button-save">
+            <button type='submit' class="popup__button">
                Сохранить
             </button>
          </form>
