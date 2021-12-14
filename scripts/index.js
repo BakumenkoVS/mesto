@@ -129,6 +129,14 @@ for (i = 0; i < popupCloseButton.length; i++) {
   })
 }
 
+const popupOverlay = document.querySelectorAll('.popup__overlay')
+//Цикл for который на каждую строку массива вешает слушатель закрытия попапа по нажатию за приделы формы
+for (i = 0; i < popupOverlay.length; i++) {
+  popupOverlay[i].addEventListener('click', function(evt) { 
+    closePopup(evt.target.closest('.popup'));
+  })
+}
+
 //Далее прописаны считыватели событий 
 formElement.addEventListener('submit', submitformHandler);
 
@@ -143,4 +151,6 @@ editActive.addEventListener('click', function() {
 //Добавляем слушатель на кнопку profile__button (открывает попап добавления новых карточек)
 profileButton.addEventListener('click', function() {
   openPopup(popupImg);
+  mestoValue.value = '';
+  imageValue.value = '';
 });
