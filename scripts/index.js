@@ -15,6 +15,9 @@ const cardDelete = cardsTemplate.querySelector('.card__delete');
 const mestoValue = popupImg.querySelector('.popup__input_value_mesto');
 const imageValue = popupImg.querySelector('.popup__input_value_image');
 const popupCloseButton = document.querySelectorAll('.popup__button-close');
+const buttonName = document.querySelector('.popup__button_type_name');
+const buttonImg = document.querySelector('.popup__button_type_img');
+
 //Переменная массива данных для карточек 
 const initialCards = [
   {
@@ -65,7 +68,7 @@ function getItem (item) {
   cardDelete.addEventListener('click', handleDelete);
 
   const popupPictureImg = document.querySelector('.popup__picture-img');
-  //Событие открывает поп ап с увеличенной картинкой и запускает фунцию 
+  //Событие открывает поп ап с увеличенной картинкой и запускает функцию 
   cardImg.addEventListener('click', function () {
     document.querySelector('.popup__subtitle').textContent = cardName.textContent
     popupPictureImg.src = cardImg.src
@@ -96,6 +99,18 @@ function handleAdd (evt) {
   imageValue.value = '';
 }
 
+//Функция удалят сообщения об ошибках из формы 
+function resetError () {
+  const spanError = document.querySelectorAll('.error');
+  const popupInput = document.querySelectorAll('.popup__input');
+  spanError.forEach(function(item){  // Обходим все элементы массива и присваиваем их textContent пустую строку
+    item.textContent = '';
+  });
+  popupInput.forEach(function(item){  // Обходим все элементы массива и убираем класс ошибки который красил border в красный цвет
+    item.classList.remove('popup__input_type_error');
+  });
+}
+
 //Функция для удаления карточек
 function  handleDelete(evt) {
   const targetEl = evt.target;
@@ -103,53 +118,79 @@ function  handleDelete(evt) {
   cardItem.remove();
 }
 
-//Функция для открытия попапа
+//Функция для открытия popup
 function openPopup(popupType) {
   popupType.classList.add('popup_opened');
 }
 
-//Функция для закрытия попапа
+//Функция для закрытия popup
 function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
 }
 
-//Функция присваивает введенык значения value элементам на странице
+//Функция присваивает введенные значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 
-function submitformHandler(evt) {
+function submitFormHandler(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = professionInput.value;
   closePopup(popupName);
 }
 
-//Цикл for который на каждую строку массива вешает слушатель закрытия попапа по наатию на крестик 
+//Цикл for который на каждый элемент массива вешает слушатель закрытия popup по нажатию на крестик 
 for (i = 0; i < popupCloseButton.length; i++) {
   popupCloseButton[i].addEventListener('click', function(evt) { 
     closePopup(evt.target.closest('.popup'));
+    resetError ();
   })
 }
 
 const popupOverlay = document.querySelectorAll('.popup__overlay')
-//Цикл for который на каждую строку массива вешает слушатель закрытия попапа по нажатию за приделы формы
+//Цикл for который на каждый элемент массива вешает слушатель закрытия popup по нажатию за приделы формы
 for (i = 0; i < popupOverlay.length; i++) {
   popupOverlay[i].addEventListener('click', function(evt) { 
     closePopup(evt.target.closest('.popup'));
+    resetError ();
   })
 }
 
-//Далее прописаны считыватели событий 
-formElement.addEventListener('submit', submitformHandler);
 
-formElementImg.addEventListener('submit', handleAdd);
-//Добавляем слушатель на кнопку эдит (открывает попап для изменения тайтла и субтайтла)
-editActive.addEventListener('click', function() {
-  nameInput.value = profileTitle.textContent;          //присваивание инпутам значения которые в момент 
-  professionInput.value = profileSubtitle.textContent; //открытия находятся в текстовых значениях тайтла и субтайтла
-  openPopup(popupName); // вызываю функцию открытия попапа передавая аргументом тип попапа
+//функция добавляет возможность закрывать popup нажатием кнопки esc
+function escapePopup () {
+  const popup = document.querySelectorAll('.popup'); //Присваиваем переменной popup массив хранящий в себе все элементы с классом "popup"
+  popup.forEach(function(item){
+    if(item.classList.contains('popup_opened')){ //Если у элемента массива есть класс popup_opened
+      item.classList.remove('popup_opened');     // то мы его удаляем 
+    }
+  });
+};
+
+//Функция закрытия popup нажатием на клавишу esc 
+document.addEventListener('keydown', function(evt){
+  if(evt.key === 'Escape') {
+    escapePopup();
+    resetError ();
+  }
 })
 
-//Добавляем слушатель на кнопку profile__button (открывает попап добавления новых карточек)
+
+//Далее прописаны считыватели событий 
+formElement.addEventListener('submit', submitFormHandler);
+
+formElementImg.addEventListener('submit', handleAdd);
+//Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
+editActive.addEventListener('click', function() {
+  buttonName.classList.add('popup__button_disabled'); //Делаем кнопку при каждом открытии неактивной
+  buttonName.disabled = true;
+  nameInput.value = profileTitle.textContent;          //присваивание input значения которые в момент 
+  professionInput.value = profileSubtitle.textContent; //открытия находятся в текстовых значениях title и subtitle
+  openPopup(popupName); // вызываю функцию открытия popup передавая аргументом тип popup
+})
+
+//Добавляем слушатель на кнопку profile__button (открывает popup добавления новых карточек)
 profileButton.addEventListener('click', function() {
+  buttonImg.classList.add('popup__button_disabled'); //Делаем кнопку при каждом открытии неактивной 
+  buttonImg.disabled = true;
   openPopup(popupImg);
   mestoValue.value = '';
   imageValue.value = '';
