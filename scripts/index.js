@@ -17,7 +17,7 @@ const imageValue = popupImg.querySelector('.popup__input_value_image');
 const buttonName = document.querySelector('.popup__button_type_name');
 const buttonImg = document.querySelector('.popup__button_type_img');
 const popupPictureImg = document.querySelector('.popup__picture-img');
-const popupSubtitle = popupName.querySelector('.popup__subtitle');
+const popupSubtitle = popupPicture.querySelector('.popup__subtitle');
 //Переменная массива данных для карточек 
 const initialCards = [
   {
