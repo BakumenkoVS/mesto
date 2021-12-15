@@ -1,23 +1,23 @@
+const popupName = document.querySelector('.popup_type_name');
+const popupImg = document.querySelector('.popup_type_img');
 const editActive = document.querySelector('.profile__edit');
-const formElement = document.querySelector('.popup__conteiner');
-const nameInput = formElement.querySelector('.popup__input_value_name');
-const professionInput = formElement.querySelector('.popup__input_value_profession');
+const profileForm = popupName.querySelector('.popup__conteiner');
+const nameInput = profileForm.querySelector('.popup__input_value_name');
+const professionInput = profileForm.querySelector('.popup__input_value_profession');
 const profileTitle = document.querySelector('.profile__title');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const cardsTemplate = document.querySelector('.template').content;
 const elementsList = document.querySelector('.elements');
-const popupName = document.querySelector('.popup_type_name');
-const popupImg = document.querySelector('.popup_type_img');
 const popupPicture = document.querySelector('.popup_type_picture');
 const profileButton = document.querySelector('.profile__button');
 const formElementImg = popupImg.querySelector('.popup__conteiner_img');
 const cardDelete = cardsTemplate.querySelector('.card__delete');
 const mestoValue = popupImg.querySelector('.popup__input_value_mesto');
 const imageValue = popupImg.querySelector('.popup__input_value_image');
-const popupCloseButton = document.querySelectorAll('.popup__button-close');
 const buttonName = document.querySelector('.popup__button_type_name');
 const buttonImg = document.querySelector('.popup__button_type_img');
-
+const popupPictureImg = document.querySelector('.popup__picture-img');
+const popupSubtitle = popupName.querySelector('.popup__subtitle');
 //Переменная массива данных для карточек 
 const initialCards = [
   {
@@ -66,11 +66,9 @@ function getItem (item) {
   const cardDelete = cardsElement.querySelector('.card__delete');
   //Считыватель события удаления карточек  
   cardDelete.addEventListener('click', handleDelete);
-
-  const popupPictureImg = document.querySelector('.popup__picture-img');
   //Событие открывает поп ап с увеличенной картинкой и запускает функцию 
   cardImg.addEventListener('click', function () {
-    document.querySelector('.popup__subtitle').textContent = cardName.textContent
+    popupSubtitle.textContent = cardName.textContent
     popupPictureImg.src = cardImg.src
     popupPictureImg.alt = cardName.textContent
     openPopup(popupPicture);
@@ -100,9 +98,9 @@ function handleAdd (evt) {
 }
 
 //Функция удалят сообщения об ошибках из формы 
-function resetError () {
-  const spanError = document.querySelectorAll('.error');
-  const popupInput = document.querySelectorAll('.popup__input');
+function resetError (formElement) {
+  const spanError = formElement.querySelectorAll('.error');
+  const popupInput = formElement.querySelectorAll('.popup__input');
   spanError.forEach(function(item){  // Обходим все элементы массива и присваиваем их textContent пустую строку
     item.textContent = '';
   });
@@ -121,67 +119,53 @@ function  handleDelete(evt) {
 //Функция для открытия popup
 function openPopup(popupType) {
   popupType.classList.add('popup_opened');
+  document.addEventListener('keydown', closeByEscape);
 }
 
 //Функция для закрытия popup
 function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closeByEscape);
+}
+
+//функция добавляет возможность закрывать popup нажатием кнопки esc
+function closeByEscape(evt) {
+  if (evt.key === 'Escape') {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
 }
 
 //Функция присваивает введенные значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 
-function submitFormHandler(evt) {
+function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileTitle.textContent = nameInput.value;
   profileSubtitle.textContent = professionInput.value;
   closePopup(popupName);
 }
 
-//Цикл for который на каждый элемент массива вешает слушатель закрытия popup по нажатию на крестик 
-for (i = 0; i < popupCloseButton.length; i++) {
-  popupCloseButton[i].addEventListener('click', function(evt) { 
-    closePopup(evt.target.closest('.popup'));
-    resetError ();
-  })
-}
-
-const popupOverlay = document.querySelectorAll('.popup__overlay')
-//Цикл for который на каждый элемент массива вешает слушатель закрытия popup по нажатию за приделы формы
-for (i = 0; i < popupOverlay.length; i++) {
-  popupOverlay[i].addEventListener('click', function(evt) { 
-    closePopup(evt.target.closest('.popup'));
-    resetError ();
-  })
-}
-
-
-//функция добавляет возможность закрывать popup нажатием кнопки esc
-function escapePopup () {
-  const popup = document.querySelectorAll('.popup'); //Присваиваем переменной popup массив хранящий в себе все элементы с классом "popup"
-  popup.forEach(function(item){
-    if(item.classList.contains('popup_opened')){ //Если у элемента массива есть класс popup_opened
-      item.classList.remove('popup_opened');     // то мы его удаляем 
-    }
-  });
-};
-
-//Функция закрытия popup нажатием на клавишу esc 
-document.addEventListener('keydown', function(evt){
-  if(evt.key === 'Escape') {
-    escapePopup();
-    resetError ();
-  }
+const popups = document.querySelectorAll('.popup')
+//Функция закрытия popup по нажатию на крестик и по клику на overlay
+popups.forEach((popup) => {
+    popup.addEventListener('click', (evt) => {
+        if (evt.target.classList.contains('popup__overlay')) {
+            closePopup(popup)
+        }
+        if (evt.target.classList.contains('popup__button-close')) {
+          closePopup(popup)
+        }
+    })
 })
 
-
 //Далее прописаны считыватели событий 
-formElement.addEventListener('submit', submitFormHandler);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 formElementImg.addEventListener('submit', handleAdd);
 //Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
 editActive.addEventListener('click', function() {
   buttonName.classList.add('popup__button_disabled'); //Делаем кнопку при каждом открытии неактивной
-  buttonName.disabled = true;
+  resetError(popupName);
   nameInput.value = profileTitle.textContent;          //присваивание input значения которые в момент 
   professionInput.value = profileSubtitle.textContent; //открытия находятся в текстовых значениях title и subtitle
   openPopup(popupName); // вызываю функцию открытия popup передавая аргументом тип popup
@@ -190,8 +174,10 @@ editActive.addEventListener('click', function() {
 //Добавляем слушатель на кнопку profile__button (открывает popup добавления новых карточек)
 profileButton.addEventListener('click', function() {
   buttonImg.classList.add('popup__button_disabled'); //Делаем кнопку при каждом открытии неактивной 
-  buttonImg.disabled = true;
+  resetError(popupImg);
   openPopup(popupImg);
   mestoValue.value = '';
   imageValue.value = '';
 });
+
+//Спасибо вам за ревью очень качественная работа а главное примеры как нужно сделать. Было очень приятно работать над такими замечаниями.
