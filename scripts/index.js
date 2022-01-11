@@ -1,3 +1,4 @@
+import Card from "./Card.js";
 const popupName = document.querySelector('.popup_type_name');
 const popupImg = document.querySelector('.popup_type_img');
 const editActive = document.querySelector('.profile__edit');
@@ -47,39 +48,51 @@ const initialCards = [
 ];
 
 //Функция создания карточек 
-function getItem (item) {
-  const cardsElement = cardsTemplate.cloneNode(true);
-  //Присваивание значениям template данных из массива initialCards
-  const cardName = cardsElement.querySelector('.card__title');
-  const cardImg = cardsElement.querySelector('.card__img');
+// function getItem (item) {
+//   const cardsElement = cardsTemplate.cloneNode(true);
+//   //Присваивание значениям template данных из массива initialCards
+//   const cardName = cardsElement.querySelector('.card__title');
+//   const cardImg = cardsElement.querySelector('.card__img');
 
-  cardName.textContent = item.name;
-  cardImg.src = item.link;
-  cardImg.alt = item.name;
+//   cardName.textContent = item.name;
+//   cardImg.src = item.link;
+//   cardImg.alt = item.name;
   
-  const cardHert = cardsElement.querySelector('.card__heart');
-  //Функция проставления лайков 
-  cardHert.addEventListener('click', function (evt) {
-    evt.target.classList.toggle('card__heart_aktiv');
-  });
+//   const cardHert = cardsElement.querySelector('.card__heart');
+//   //Функция проставления лайков 
+//   cardHert.addEventListener('click', function (evt) {
+//     evt.target.classList.toggle('card__heart_aktiv');
+//   });
 
-  const cardDelete = cardsElement.querySelector('.card__delete');
-  //Считыватель события удаления карточек  
-  cardDelete.addEventListener('click', handleDelete);
-  //Событие открывает поп ап с увеличенной картинкой и запускает функцию 
-  cardImg.addEventListener('click', function () {
-    popupSubtitle.textContent = cardName.textContent
-    popupPictureImg.src = cardImg.src
-    popupPictureImg.alt = cardName.textContent
-    openPopup(popupPicture);
-  });
+//   const cardDelete = cardsElement.querySelector('.card__delete');
+//   //Считыватель события удаления карточек  
+//   cardDelete.addEventListener('click', handleDelete);
+//   //Событие открывает поп ап с увеличенной картинкой и запускает функцию 
+//   cardImg.addEventListener('click', function () {
+//     popupSubtitle.textContent = cardName.textContent
+//     popupPictureImg.src = cardImg.src
+//     popupPictureImg.alt = cardName.textContent
+//     openPopup(popupPicture);
+//   });
   
-  return cardsElement;
-};
+//   return cardsElement;
+// };
+
+// const todoList = new Card (initialCards , '.template');
+// elementsList.append(todoList.generateCard());
+
+// initialCards.map((item) => {
+//   const x = new Card(item, '.template');
+//   const cardElement = x.generateCard();
+//   document.querySelector('.elements').append(cardElement);
+  
+//   });
 
 //Функция динамической загрузки карточек на страницу
 function render() {
-  const html = initialCards.map((item) => { return getItem(item);
+  const html = initialCards.map((item) => { 
+    const card = new Card('.template', item.name, item.link);
+    return card.getView();
   });
   elementsList.append(...html);
 }
@@ -90,8 +103,9 @@ function handleAdd (evt) {
   evt.preventDefault();
   const inputText = mestoValue.value;
   const inputSrc = imageValue.value;
-  const cardItem = getItem({name: inputText, link: inputSrc});
-  elementsList.prepend(cardItem);
+  const cardItem =  new Card('.template', inputText, inputSrc);
+
+  elementsList.prepend(cardItem.getView());
   closePopup(popupImg);
   mestoValue.value = '';
   imageValue.value = '';
@@ -109,12 +123,12 @@ function resetError (formElement) {
   });
 }
 
-//Функция для удаления карточек
-function  handleDelete(evt) {
-  const targetEl = evt.target;
-  const cardItem = targetEl.closest('.card');
-  cardItem.remove();
-}
+// //Функция для удаления карточек
+// function  handleDelete(evt) {
+//   const targetEl = evt.target;
+//   const cardItem = targetEl.closest('.card');
+//   cardItem.remove();
+// }
 
 //Функция для открытия popup
 function openPopup(popupType) {
