@@ -89,6 +89,8 @@ const initialCards = [
 //   });
 
 //Функция динамической загрузки карточек на страницу
+
+
 function render() {
   const html = initialCards.map((item) => { 
     const card = new Card('.template', item.name, item.link);
@@ -104,7 +106,6 @@ function handleAdd (evt) {
   const inputText = mestoValue.value;
   const inputSrc = imageValue.value;
   const cardItem =  new Card('.template', inputText, inputSrc);
-
   elementsList.prepend(cardItem.getView());
   closePopup(popupImg);
   mestoValue.value = '';
@@ -194,4 +195,3 @@ profileButton.addEventListener('click', function() {
   imageValue.value = '';
 });
 
-//Спасибо вам за ревью очень качественная работа а главное примеры как нужно сделать. Было очень приятно работать над такими замечаниями.
