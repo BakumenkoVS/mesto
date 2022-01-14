@@ -2,6 +2,8 @@ import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 const popupName = document.querySelector('.popup_type_name');
 const popupImg = document.querySelector('.popup_type_img');
+const popupPicture = document.querySelector('.popup_type_picture');
+const popupPictureImg = popupPicture.querySelector('.popup__picture-img');
 const editActive = document.querySelector('.profile__edit');
 const profileForm = popupName.querySelector('.popup__conteiner');
 const nameInput = profileForm.querySelector('.popup__input_value_name');
@@ -45,7 +47,6 @@ const initialCards = [
 ];
 
 const enableValidation = ({
-  formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
   inactiveButtonClass: 'popup__button_disabled',
@@ -156,3 +157,4 @@ profileButton.addEventListener('click', function () {
   imageValue.value = '';
 });
 
+export {popupPicture, openPopup, popupPictureImg} ;
