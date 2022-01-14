@@ -15,8 +15,7 @@ const profileButton = document.querySelector('.profile__button');
 const formElementImg = popupImg.querySelector('.popup__conteiner_img');
 const mestoValue = popupImg.querySelector('.popup__input_value_mesto');
 const imageValue = popupImg.querySelector('.popup__input_value_image');
-const buttonName = document.querySelector('.popup__button_type_name');
-const buttonImg = document.querySelector('.popup__button_type_img');
+
 
 //Переменная массива данных для карточек 
 const initialCards = [
@@ -60,10 +59,13 @@ const nameChangeFormValidation = new FormValidator(enableValidation, formName);
 nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
 
+function createCard(name, link) {
+  return (new Card('.template', name, link)).getView();
+}
+
 function render() {
   const html = initialCards.map((item) => {
-    const card = new Card('.template', item.name, item.link);
-    return card.getView();
+    return createCard(item.name, item.link)
   });
   elementsList.append(...html);
 }
@@ -74,24 +76,12 @@ function handleAdd(evt) {
   evt.preventDefault();
   const inputText = mestoValue.value;
   const inputSrc = imageValue.value;
-  const cardItem = new Card('.template', inputText, inputSrc);
-  elementsList.prepend(cardItem.getView());
+  elementsList.prepend(createCard(inputText, inputSrc));
   closePopup(popupImg);
   mestoValue.value = '';
   imageValue.value = '';
 }
 
-//Функция удалят сообщения об ошибках из формы 
-function resetError(formElement) {
-  const spanError = formElement.querySelectorAll('.error');
-  const popupInput = formElement.querySelectorAll('.popup__input');
-  spanError.forEach(function (item) {  // Обходим все элементы массива и присваиваем их textContent пустую строку
-    item.textContent = '';
-  });
-  popupInput.forEach(function (item) {  // Обходим все элементы массива и убираем класс ошибки который красил border в красный цвет
-    item.classList.remove('popup__input_type_error');
-  });
-}
 
 //Функция для открытия popup
 function openPopup(popupType) {
@@ -141,8 +131,8 @@ profileForm.addEventListener('submit', handleProfileFormSubmit);
 formElementImg.addEventListener('submit', handleAdd);
 //Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
 editActive.addEventListener('click', function () {
-  buttonName.classList.add('popup__button_disabled'); //Делаем кнопку при каждом открытии неактивной
-  resetError(popupName);
+  //Делаем кнопку при каждом открытии неактивной
+  nameChangeFormValidation.resetError();
   nameInput.value = profileTitle.textContent;          //присваивание input значения которые в момент 
   professionInput.value = profileSubtitle.textContent; //открытия находятся в текстовых значениях title и subtitle
   openPopup(popupName); // вызываю функцию открытия popup передавая аргументом тип popup
@@ -150,11 +140,10 @@ editActive.addEventListener('click', function () {
 
 //Добавляем слушатель на кнопку profile__button (открывает popup добавления новых карточек)
 profileButton.addEventListener('click', function () {
-  buttonImg.classList.add('popup__button_disabled'); //Делаем кнопку при каждом открытии неактивной 
-  resetError(popupImg);
+  imgAddFormValidation.resetError();
   openPopup(popupImg);
   mestoValue.value = '';
   imageValue.value = '';
 });
 
-export {popupPicture, openPopup, popupPictureImg} ;
+export { popupPicture, openPopup, popupPictureImg };
