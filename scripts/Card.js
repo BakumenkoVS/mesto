@@ -1,4 +1,4 @@
-import {popupPicture, openPopup, popupPictureImg} from './index.js';
+import {popupPicture, openPopup, popupPictureImg, popupPictureSubtitle} from './index.js';
 export default class Card {
     constructor(selector, name, link) {
         this._selector = selector;
@@ -23,28 +23,27 @@ export default class Card {
     };
     //метод реализующий открытие большой картинки по клику на маленькую 
     _openBigImg = () => {
-        popupPicture.querySelector('.popup__subtitle').textContent = this._name;
+        popupPictureSubtitle.textContent = this._name;
         popupPictureImg.src = this._link;
         popupPictureImg.alt = this._name;
         openPopup(popupPicture);
     }
     
-    _setEventListeners(element) {
-        
-        element.querySelector('.card__delete').addEventListener('click', this._handleDeleteCard);
-        element.querySelector('.card__heart').addEventListener('click', this._putLike);
+    _setEventListeners() {
+        this._cardImg.addEventListener('click', this._openBigImg);
+        this._element.querySelector('.card__delete').addEventListener('click', this._handleDeleteCard);
+        this._element.querySelector('.card__heart').addEventListener('click', this._putLike);
     };
 
     //Публичный метод возвращающий заполненную карточку 
     getView() {
         this._element = this._getItem();
-        const cardImg = this._element.querySelector('.card__img');
-        cardImg.src = this._link;
-        cardImg.alt = this._name;
+        this._cardImg = this._element.querySelector('.card__img');
+        this._cardImg.src = this._link;
+        this._cardImg.alt = this._name;
         this._element.querySelector('.card__title').textContent = this._name;
-        cardImg.addEventListener('click', this._openBigImg);
-        this._setEventListeners(this._element);
-
+        
+        this._setEventListeners();
 
         return this._element;
     };

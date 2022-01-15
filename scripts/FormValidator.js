@@ -6,7 +6,7 @@ export default class FormValidator {
       this._inactiveButtonClass = selectors.inactiveButtonClass;
       this._inputErrorClass = selectors.inputErrorClass;
       this._errorClass = selectors.errorClass;
-      this._formInputs = this._form.querySelectorAll(this._inputSelector);
+      this._formInputs = Array.from(this._form.querySelectorAll(this._inputSelector));
       this._submitButton = this._form.querySelector(this._submitButtonSelector);
    }
    //Функция показа ошибки валидации
@@ -25,7 +25,7 @@ export default class FormValidator {
    };
    //Функция проверяет валидность input и если хотя бы 1 не валиден выдает true
    _hasInvalidinput = () => {
-      return Array.from(this._formInputs).some((el) => {
+      return this._formInputs.some((el) => {
          return !el.validity.valid
       });
    };
@@ -51,7 +51,7 @@ export default class FormValidator {
    //Функция которая собирает все условия проверки объявленные выше и проверяет каждый input
    _setInputListeners() {
 
-      // this._toggleButtonError(inputs, submitButton);
+      //this._toggleButtonError(inputs, submitButton);
       this._formInputs.forEach((input) => {
          input.addEventListener('input', () => {
             this._checkIfInputValid(input);
@@ -61,13 +61,9 @@ export default class FormValidator {
    }
 
    resetError() {
-      const spanError = document.querySelectorAll('.error');
       this._submitButton.classList.add(this._inactiveButtonClass);
-      spanError.forEach(function (item) {  // Обходим все элементы массива и присваиваем их textContent пустую строку
-         item.textContent = '';
-      });
-      this._formInputs.forEach(function (item) {  // Обходим все элементы массива и убираем класс ошибки который красил border в красный цвет
-         item.classList.remove('popup__input_type_error');
+      this._formInputs.forEach((item) => { 
+      this._hideError(item);
       });
    };
 

@@ -4,6 +4,7 @@ const popupName = document.querySelector('.popup_type_name');
 const popupImg = document.querySelector('.popup_type_img');
 const popupPicture = document.querySelector('.popup_type_picture');
 const popupPictureImg = popupPicture.querySelector('.popup__picture-img');
+const popupPictureSubtitle = popupPicture.querySelector('.popup__subtitle');
 const editActive = document.querySelector('.profile__edit');
 const profileForm = popupName.querySelector('.popup__conteiner');
 const nameInput = profileForm.querySelector('.popup__input_value_name');
@@ -78,8 +79,6 @@ function handleAdd(evt) {
   const inputSrc = imageValue.value;
   elementsList.prepend(createCard(inputText, inputSrc));
   closePopup(popupImg);
-  mestoValue.value = '';
-  imageValue.value = '';
 }
 
 
@@ -146,4 +145,4 @@ profileButton.addEventListener('click', function () {
   imageValue.value = '';
 });
 
-export { popupPicture, openPopup, popupPictureImg };
+export { popupPicture, openPopup, popupPictureImg, popupPictureSubtitle };
