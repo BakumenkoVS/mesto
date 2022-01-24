@@ -1,5 +1,6 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
+import Section from "./Section.js";
 const popupName = document.querySelector('.popup_type_name');
 const popupImg = document.querySelector('.popup_type_img');
 const popupPicture = document.querySelector('.popup_type_picture');
@@ -64,13 +65,24 @@ function createCard(name, link) {
   return (new Card('.template', name, link)).getView();
 }
 
-function render() {
-  const html = initialCards.map((item) => {
-    return createCard(item.name, item.link)
-  });
-  elementsList.append(...html);
-}
-render();
+const xr = new Section({
+  items: initialCards,
+  renderer: (item) => {
+    const card = new Card('.template', item);
+    const cardElement = card.getView();
+    xr.addItem(cardElement);
+  }
+}, '.elements');
+
+xr.renderItems();
+
+// function render() {
+//   const html = initialCards.map((item) => {
+//     return createCard(item.name, item.link)
+//   });
+//   elementsList.append(...html);
+// }
+// render();
 
 //функция для добавления карточек 
 function handleAdd(evt) {

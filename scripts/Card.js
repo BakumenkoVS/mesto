@@ -1,9 +1,9 @@
 import {popupPicture, openPopup, popupPictureImg, popupPictureSubtitle} from './index.js';
 export default class Card {
-    constructor(selector, name, link) {
+    constructor(selector, item) {
         this._selector = selector;
-        this._name = name;
-        this._link = link;
+        this._name = item.name;
+        this._link = item.link;
     }
     //метод находит template элемент дублирует его часть и возвращает ее 
     _getItem() {
