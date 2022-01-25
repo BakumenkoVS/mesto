@@ -1,9 +1,10 @@
 import {popupPicture, openPopup, popupPictureImg, popupPictureSubtitle} from './index.js';
 export default class Card {
-    constructor(selector, item) {
+    constructor(selector, item, handleCardClick) {
         this._selector = selector;
         this._name = item.name;
         this._link = item.link;
+        this._handleCardClick = handleCardClick;
     }
     //метод находит template элемент дублирует его часть и возвращает ее 
     _getItem() {
@@ -23,10 +24,7 @@ export default class Card {
     };
     //метод реализующий открытие большой картинки по клику на маленькую 
     _openBigImg = () => {
-        popupPictureSubtitle.textContent = this._name;
-        popupPictureImg.src = this._link;
-        popupPictureImg.alt = this._name;
-        openPopup(popupPicture);
+        this._handleCardClick();
     }
     
     _setEventListeners() {

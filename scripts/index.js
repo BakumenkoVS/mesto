@@ -1,6 +1,8 @@
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 import Section from "./Section.js";
+import PopupWithForm from "./PopupWithForm.js";
+import Popup from "./Popup.js";
 const popupName = document.querySelector('.popup_type_name');
 const popupImg = document.querySelector('.popup_type_img');
 const popupPicture = document.querySelector('.popup_type_picture');
@@ -65,17 +67,35 @@ function createCard(name, link) {
   return (new Card('.template', name, link)).getView();
 }
 
+//FIXME: Работает но нужно переделать 
+const opa = new Popup('.popup_type_img');
+
+//FIXME: Переименовать переменные 
 const xr = new Section({
   items: initialCards,
   renderer: (item) => {
     const card = new Card('.template', item);
     const cardElement = card.getView();
     xr.addItem(cardElement);
+    
   }
 }, '.elements');
 
-xr.renderItems();
 
+
+const y = new PopupWithForm({popupSelector: '.popup_type_img', handleFormSubmit: (formData) => {
+      
+      const card = new Card('.template', formData);
+      const cardElement = card.getView();
+      xr.addItem(cardElement);
+      debugger;
+    }
+  });
+  
+  xr.renderItems();
+
+
+//TODO: старый метод добавления карточек на страницу 
 // function render() {
 //   const html = initialCards.map((item) => {
 //     return createCard(item.name, item.link)
@@ -85,13 +105,13 @@ xr.renderItems();
 // render();
 
 //функция для добавления карточек 
-function handleAdd(evt) {
-  evt.preventDefault();
-  const inputText = mestoValue.value;
-  const inputSrc = imageValue.value;
-  elementsList.prepend(createCard(inputText, inputSrc));
-  closePopup(popupImg);
-}
+// function handleAdd(evt) {
+//   evt.preventDefault();
+//   const inputText = mestoValue.value;
+//   const inputSrc = imageValue.value;
+//   elementsList.prepend(createCard(inputText, inputSrc));
+//   closePopup(popupImg);
+// }
 
 
 //Функция для открытия popup
@@ -139,7 +159,7 @@ popups.forEach((popup) => {
 //Далее прописаны считыватели событий 
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
-formElementImg.addEventListener('submit', handleAdd);
+//formElementImg.addEventListener('submit', handleAdd);
 //Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
 editActive.addEventListener('click', function () {
   //Делаем кнопку при каждом открытии неактивной
@@ -151,10 +171,7 @@ editActive.addEventListener('click', function () {
 
 //Добавляем слушатель на кнопку profile__button (открывает popup добавления новых карточек)
 profileButton.addEventListener('click', function () {
-  imgAddFormValidation.resetError();
-  openPopup(popupImg);
-  mestoValue.value = '';
-  imageValue.value = '';
+  opa.open();
 });
 
 export { popupPicture, openPopup, popupPictureImg, popupPictureSubtitle };
