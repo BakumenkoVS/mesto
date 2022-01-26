@@ -77,23 +77,25 @@ const xr = new Section({
     const card = new Card('.template', item);
     const cardElement = card.getView();
     xr.addItem(cardElement);
-    
+
   }
 }, '.elements');
 
 
+//FIXME: почистить название классов 
+const y = new PopupWithForm({
+  popupSelector: '.popup_type_img',
+  handleFormSubmit: (item) => {
 
-const y = new PopupWithForm({popupSelector: '.popup_type_img', handleFormSubmit: (formData) => {
-      
-      const card = new Card('.template', formData);
-      const cardElement = card.getView();
-      xr.addItem(cardElement);
-      debugger;
-    }
-  });
-  
-  xr.renderItems();
+    const cardIMG = new Card('.template', item);
+    const cardElement = cardIMG.getView();
+    xr.addItem(cardElement);
+    y.close();
+  }
+});
 
+xr.renderItems();
+y.generate();
 
 //TODO: старый метод добавления карточек на страницу 
 // function render() {
@@ -115,24 +117,24 @@ const y = new PopupWithForm({popupSelector: '.popup_type_img', handleFormSubmit:
 
 
 //Функция для открытия popup
-function openPopup(popupType) {
-  popupType.classList.add('popup_opened');
-  document.addEventListener('keydown', closeByEscape);
-}
+// function openPopup(popupType) {
+//   popupType.classList.add('popup_opened');
+//   document.addEventListener('keydown', closeByEscape);
+// }
 
-//Функция для закрытия popup
-function closePopup(popupType) {
-  popupType.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closeByEscape);
-}
+// //Функция для закрытия popup
+// function closePopup(popupType) {
+//   popupType.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', closeByEscape);
+// }
 
 //функция добавляет возможность закрывать popup нажатием кнопки esc
-function closeByEscape(evt) {
-  if (evt.key === 'Escape') {
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
-  }
-}
+// function closeByEscape(evt) {
+//   if (evt.key === 'Escape') {
+//     const openedPopup = document.querySelector('.popup_opened');
+//     closePopup(openedPopup);
+//   }
+// }
 
 //Функция присваивает введенные значения value элементам на странице
 //И закрывает форму по нажатию на кнопку сохранить 

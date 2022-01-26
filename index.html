@@ -57,9 +57,9 @@
          <form name="img" id="form__add" class="popup__form popup__form1">
             <button class="popup__button-close" type="button"></button>
             <fieldset class="popup__information">
-               <input id="mesto" type="text" class="popup__input popup__input_value_mesto"  placeholder='Название' value="" name="mesto" required minlength="2" maxlength="30">
+               <input id="mesto" type="text" class="popup__input popup__input_value_mesto"  placeholder='Название' value="" name="name" required minlength="2" maxlength="30">
                <span id='mesto-error' class="error"></span>
-               <input id="image" type="url" class="popup__input popup__input_value_image" placeholder='Ссылка на картинку' value="" name="image" required>
+               <input id="image" type="url" class="popup__input popup__input_value_image" placeholder='Ссылка на картинку' value="" name="link" required>
                <span id='image-error' class="error"></span>
             </fieldset>
             <button type='submit' class="popup__button popup__button_type_img">
@@ -90,7 +90,8 @@
    <script type="module" src="./scripts/Card.js" ></script>
    <script type="module" src="./scripts/FormValidator.js"></script>
    <script type="module" src="./scripts/Section.js"></script>
-   <script type="module" src="./scripts/PopupWithForm.js"></script>
+   
    <script type="module" src="./scripts/Popup.js"></script>
+   <script type="module" src="./scripts/PopupWithForm.js"></script>
 </body>
 </html>
