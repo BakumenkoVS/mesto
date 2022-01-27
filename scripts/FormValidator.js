@@ -51,7 +51,7 @@ export default class FormValidator {
    //Функция которая собирает все условия проверки объявленные выше и проверяет каждый input
    _setInputListeners() {
 
-      //this._toggleButtonError(inputs, submitButton);
+      this._toggleButtonError();
       this._formInputs.forEach((input) => {
          input.addEventListener('input', () => {
             this._checkIfInputValid(input);
@@ -62,8 +62,8 @@ export default class FormValidator {
 
    resetError() {
       this._submitButton.classList.add(this._inactiveButtonClass);
-      this._formInputs.forEach((item) => { 
-      this._hideError(item);
+      this._formInputs.forEach((item) => {
+         this._hideError(item);
       });
    };
 

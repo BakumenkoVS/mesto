@@ -1,4 +1,4 @@
-import {popupPicture, openPopup, popupPictureImg, popupPictureSubtitle} from './index.js';
+import {popupPicture, popupPictureImg, popupPictureSubtitle} from './index.js';
 export default class Card {
     constructor(selector, item, handleCardClick) {
         this._selector = selector;
@@ -23,12 +23,16 @@ export default class Card {
         evt.target.classList.toggle('card__heart_active');
     };
     //метод реализующий открытие большой картинки по клику на маленькую 
-    _openBigImg = () => {
-        this._handleCardClick();
-    }
+    // _openBigImg = () => {
+    //     this._handleCardClick();
+    // }
     
+    _openBig = () => {
+        this._handleCardClick(this._name, this._link);
+    }
+
     _setEventListeners() {
-        this._cardImg.addEventListener('click', this._openBigImg);
+        this._cardImg.addEventListener('click', this._openBig);
         this._element.querySelector('.card__delete').addEventListener('click', this._handleDeleteCard);
         this._element.querySelector('.card__heart').addEventListener('click', this._putLike);
     };
