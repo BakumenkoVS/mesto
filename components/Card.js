@@ -1,4 +1,4 @@
-import {popupPicture, popupPictureImg, popupPictureSubtitle} from './index.js';
+
 export default class Card {
     constructor(selector, item, handleCardClick) {
         this._selector = selector;
@@ -22,11 +22,7 @@ export default class Card {
     _putLike = (evt) => {
         evt.target.classList.toggle('card__heart_active');
     };
-    //метод реализующий открытие большой картинки по клику на маленькую 
-    // _openBigImg = () => {
-    //     this._handleCardClick();
-    // }
-    
+
     _openBig = () => {
         this._handleCardClick(this._name, this._link);
     }
@@ -44,7 +40,7 @@ export default class Card {
         this._cardImg.src = this._link;
         this._cardImg.alt = this._name;
         this._element.querySelector('.card__title').textContent = this._name;
-        
+
         this._setEventListeners();
 
         return this._element;
