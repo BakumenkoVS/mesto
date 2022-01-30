@@ -33,7 +33,7 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
    }
 ];
-const enableValidation = ({
+const validationEnable = ({
    inputSelector: '.popup__input',
    submitButtonSelector: '.popup__button',
    inactiveButtonClass: 'popup__button_disabled',
@@ -50,7 +50,7 @@ export {
    professionInput,
    profileButton,
    initialCards,
-   enableValidation,
+   validationEnable,
    formAdd,
    formName
 }

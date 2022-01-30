@@ -8,11 +8,13 @@ export default class PopupWithForm extends Popup {
       this._popupElement = document.querySelector(this._popupSelector);
       this._popupForm = this._popupElement.querySelector('.popup__form');
       this._handleFormSubmit = handleFormSubmit;
+      this._inputList = this._popupElement.querySelectorAll('.popup__input');
+
 
    };
    //Метод вешает слушатель события на форму по submit отключает привычное поведение функции 
    //и передает переменной функции handleFormSubmit объект с инпутами.
-   _setEventListeners() {
+   setEventListeners() {
       super.setEventListeners();
       this._popupForm.addEventListener('submit', (evt) => {
 
@@ -27,16 +29,11 @@ export default class PopupWithForm extends Popup {
    //Метод реализует нахождение инпутов в форме найденной по слектору из параметров и возвращает 
    //объект с полученными данными 
    _getInputValues() {
-      this._inputList = this._popupElement.querySelectorAll('.popup__input');
 
       this._formValues = {};
       this._inputList.forEach(input => this._formValues[input.name] = input.value);
 
       return this._formValues;
-   }
-
-   generate() {
-      this._setEventListeners();
    }
 
 }

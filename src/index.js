@@ -13,28 +13,30 @@ import {
   formAdd,
   formName,
   initialCards,
-  enableValidation,
+  validationEnable,
 } from "../utils/constants.js"
 
-const imgAddFormValidation = new FormValidator(enableValidation, formAdd);
-const nameChangeFormValidation = new FormValidator(enableValidation, formName);
+const imgAddFormValidation = new FormValidator(validationEnable, formAdd);
+const nameChangeFormValidation = new FormValidator(validationEnable, formName);
 nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
 
-
+function creationCard (item) {
+  const card = new Card('.template', item, handleCardClick);
+  const cardElement = card.getView();
+  cardRender.addItem(cardElement);
+}
 
 const cardRender = new Section({
   items: initialCards,
   renderer: (item) => {
-    const card = new Card('.template', item, handleCardClick);
-    const cardElement = card.getView();
-    cardRender.addItem(cardElement);
+    creationCard(item);
 
   }
 }, '.elements');
 
 const copyPopupImg = new PopupWithImage('.popup_type_picture');
-
+copyPopupImg.setEventListeners();
 function handleCardClick(name, link) {
   copyPopupImg.open(name, link);
 }
@@ -44,15 +46,13 @@ const cardAdd = new PopupWithForm({
   popupSelector: '.popup_type_img',
   handleFormSubmit: (item) => {
 
-    const cardIMG = new Card('.template', item, handleCardClick);
-    const cardElement = cardIMG.getView();
-    cardRender.addItem(cardElement);
+    creationCard(item);
 
   }
 });
 
 cardRender.renderItems();
-cardAdd.generate();
+cardAdd.setEventListeners();
 
 const formProfile = new UserInfo({name: '.profile__title', profession: '.profile__subtitle'});
 const profileChange = new PopupWithForm({
@@ -61,11 +61,12 @@ const profileChange = new PopupWithForm({
     formProfile.setUserInfo(formData);
   }
 });
-profileChange.generate();
+profileChange.setEventListeners();
 
 //Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
-editActive.addEventListener('click',  (formData) => {
-  const info = formProfile.getUserInfo(formData);
+editActive.addEventListener('click',  () => {
+  
+  const info = formProfile.getUserInfo();
   nameInput.value = info.inputName;
   professionInput.value = info.inputProfession;
   profileChange.open()

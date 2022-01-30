@@ -6,14 +6,14 @@ export default class UserInfo {
       this._profileProfession = document.querySelector(profession);
    }
    //Метод для реализации записи значения имени и профессии используется в событии открытия формы 
-   getUserInfo(formData) {
+   getUserInfo() {
 
-      formData.name = this._profileName.textContent;
-      formData.profession = this._profileProfession.textContent;
+      // formData.name = this._profileName.textContent;
+      // formData.profession = this._profileProfession.textContent;
 
       const inputText = {
-         inputName: formData.name,
-         inputProfession: formData.profession
+         inputName: this._profileName.textContent ,
+         inputProfession: this._profileProfession.textContent
       }
 
       return inputText;

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPack = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -22,8 +23,16 @@ module.exports = {
                 exclude: /node-modules/,
             },
             {
+                // применять это правило только к CSS-файлам
                 test: /\.css$/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader'],
+                // при обработке этих файлов нужно использовать
+                // MiniCssExtractPlugin.loader и css-loader
+                use: [MiniCssExtractPlugin.loader, {
+                    loader: 'css-loader',
+                    
+                },
+                  // Добавьте postcss-loader
+                'postcss-loader']
             },
             {
                 // регулярное выражение, которое ищет все файлы с такими расширениями
@@ -36,6 +45,7 @@ module.exports = {
         new HtmlWebpackPack({
             template: './src/index.html',
         }),
+        new CleanWebpackPlugin(),
         new MiniCssExtractPlugin(),
     ],
 }
