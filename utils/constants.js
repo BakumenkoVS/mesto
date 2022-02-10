@@ -7,32 +7,7 @@ const professionInput = document.querySelector('.popup__input_value_profession')
 const profileButton = document.querySelector('.profile__button');
 const formAdd = document.getElementById('form__add');
 const formName = document.getElementById('form__name');
-const initialCards = [
-   {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-   },
-   {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-   },
-   {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-   },
-   {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-   },
-   {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-   },
-   {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-   }
-];
+
 const validationEnable = ({
    inputSelector: '.popup__input',
    submitButtonSelector: '.popup__button',
@@ -49,7 +24,6 @@ export {
    nameInput,
    professionInput,
    profileButton,
-   initialCards,
    validationEnable,
    formAdd,
    formName

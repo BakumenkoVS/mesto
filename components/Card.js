@@ -1,10 +1,14 @@
 
 export default class Card {
-    constructor(selector, item, handleCardClick) {
+    constructor(selector, item, handleCardClick, handleDeleteButtonClick) {
         this._selector = selector;
         this._name = item.name;
         this._link = item.link;
+        this._id = item._id;
         this._handleCardClick = handleCardClick;
+        this._handleDeleteButtonClick = handleDeleteButtonClick;
+        
+        debugger
     }
     //метод находит template элемент дублирует его часть и возвращает ее 
     _getItem() {
@@ -15,9 +19,15 @@ export default class Card {
             .cloneNode(true);
     }
     //Метод для удаления карточек 
-    _handleDeleteCard = () => {
+    // _handleDeleteCard = () => {
+    //     this._handleDeleteButtonClick();
+    // }
+
+    removeMessage() {
         this._element.remove();
+        this._element = null;
     }
+
     //Метод для использования кнопки лайка 
     _putLike = (evt) => {
         evt.target.classList.toggle('card__heart_active');
@@ -27,9 +37,13 @@ export default class Card {
         this._handleCardClick(this._name, this._link);
     }
 
+    getId() {
+        return this._id;
+    }
+
     _setEventListeners() {
         this._cardImg.addEventListener('click', this._openBig);
-        this._element.querySelector('.card__delete').addEventListener('click', this._handleDeleteCard);
+        this._element.querySelector('.card__delete').addEventListener('click', () => this._handleDeleteButtonClick(this));
         this._element.querySelector('.card__heart').addEventListener('click', this._putLike);
     };
 
