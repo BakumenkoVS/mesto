@@ -14,8 +14,10 @@ import {
   formAdd,
   formName,
   validationEnable,
+  cardsTemplate,
 } from "../utils/constants.js"
 
+let userId = null;
 //Пробы  Api
 
 const api = new Api({
@@ -26,16 +28,22 @@ const api = new Api({
 api.getCard()
   .then((data) => {
 
-    const cardRender = new Section({
-      items: data,
-      renderer: (item) => {
-        creationCard(item);
-
-      }
-    }, '.elements');
-    cardRender.renderItems()
+    section.renderItems(data)
   })
   .catch(err => console.log(err))
+
+// Не могу понять как мне получить отсюда айди что бы его использовать 
+const userInfo = api.getUserInfo()
+  .then((data) => {
+    console.log(data)
+    userId = data;
+    console.log( data._id)
+    return data
+    
+  })
+
+  .catch(err => console.log(err))
+console.log(userId)
 
 
 
@@ -46,12 +54,15 @@ nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
 
 function creationCard(item) {
-  const card = new Card('.template', item, handleCardClick);
+  const card = new Card(cardsTemplate, item, handleCardClick, handleDeleteButtonClick);
+  item.owner = userId
+  console.log()
   const cardElement = card.getView();
   section.addItem(cardElement);
+
 }
 
-const section = new Section({}, '.elements');
+const section = new Section({ renderer: (data) => creationCard(data) }, '.elements');
 
 const copyPopupImg = new PopupWithImage('.popup_type_picture');
 copyPopupImg.setEventListeners();
@@ -75,6 +86,10 @@ function handleCardClick(name, link) {
 //   })
 //   .catch(err => console.log(err))
 
+const handleDeleteButtonClick = (x) => {
+  api.deleteCard(x)
+    .catch(err => console.log(`Ошибка удаления сообщения: ${err}`))
+};
 
 
 const cardAdd = new PopupWithForm({
@@ -83,16 +98,16 @@ const cardAdd = new PopupWithForm({
 
     api.addCards(data)
       .then(result => {
-        // creationCard(result);
-        // debugger
+        creationCard(result);
 
-        const card = new Card({selector: '.template', result, handleCardClick, handleDeleteButtonClick: () => {
-          api.deleteCard(card.getId())
-          .then(() => card.removeMessage())
-          .catch(err => console.log(`Ошибка удаления сообщения: ${err}`))
-        }});
-        const cardElement = card.getView();
-        section.addItem(cardElement);
+
+        // const card = new Card({cardsTemplate, result, handleCardClick, handleDeleteButtonClick () => {
+        //   api.deleteCard(card.getId())
+        //   .then(() => card.removeMessage())
+        //   .catch(err => console.log(`Ошибка удаления сообщения: ${err}`))
+        // }});
+        // const cardElement = card.getView();
+        // section.addItem(cardElement);
       })
       .catch(err => console.log(err))
   }

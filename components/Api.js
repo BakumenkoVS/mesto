@@ -12,6 +12,15 @@ export default class Api {
       return Promise.reject(`Ошибка ${response.status}`)
    }
 
+   getUserInfo() {
+      return fetch(`${this._address}users/me`, {
+         headers: {
+            authorization: this._token
+         }
+      })
+         .then(this._handleResponse)
+   }
+
    getCard() {
       return fetch(`${this._address}cards`, {
          headers: {
@@ -37,7 +46,7 @@ export default class Api {
    }
 
    deleteCard(id) {
-      return fetch(`${this._address}cards/{id}`, {
+      return fetch(`${this._address}cards/${id}` , {
          method: 'DELETE',
          headers: {
             authorization: this._token,

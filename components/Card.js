@@ -5,10 +5,11 @@ export default class Card {
         this._name = item.name;
         this._link = item.link;
         this._id = item._id;
+        this._ownerId = item.owner._id;
+        this._userId = item.owner;
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;
-        
-        debugger
+        console.log(this._ownerId)
     }
     //метод находит template элемент дублирует его часть и возвращает ее 
     _getItem() {
@@ -19,11 +20,13 @@ export default class Card {
             .cloneNode(true);
     }
     //Метод для удаления карточек 
-    // _handleDeleteCard = () => {
-    //     this._handleDeleteButtonClick();
-    // }
+    _handleDeleteCard = () => {
+        this._handleDeleteButtonClick(this._id);
+        this._element.remove();
+    }
 
-    removeMessage() {
+
+    _removeMessage() {
         this._element.remove();
         this._element = null;
     }
@@ -37,13 +40,13 @@ export default class Card {
         this._handleCardClick(this._name, this._link);
     }
 
-    getId() {
-        return this._id;
+    getUserId(id) {
+        this._userId = id;
     }
 
     _setEventListeners() {
         this._cardImg.addEventListener('click', this._openBig);
-        this._element.querySelector('.card__delete').addEventListener('click', () => this._handleDeleteButtonClick(this));
+        this._element.querySelector('.card__delete').addEventListener('click', () => this._handleDeleteCard(this));
         this._element.querySelector('.card__heart').addEventListener('click', this._putLike);
     };
 
