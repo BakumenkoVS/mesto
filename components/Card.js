@@ -6,10 +6,13 @@ export default class Card {
         this._link = item.link;
         this._id = item._id;
         this._ownerId = item.owner._id;
-        this._userId = item.owner;
+        this._userId = item.bd;
+        
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;
-        console.log(this._ownerId)
+        
+        
+        
     }
     //метод находит template элемент дублирует его часть и возвращает ее 
     _getItem() {
@@ -21,12 +24,12 @@ export default class Card {
     }
     //Метод для удаления карточек 
     _handleDeleteCard = () => {
-        this._handleDeleteButtonClick(this._id);
-        this._element.remove();
+        this._handleDeleteButtonClick(this._id, this._element);
+        
     }
 
 
-    _removeMessage() {
+    removeMessage() {
         this._element.remove();
         this._element = null;
     }
@@ -40,8 +43,11 @@ export default class Card {
         this._handleCardClick(this._name, this._link);
     }
 
-    getUserId(id) {
-        this._userId = id;
+    _getUserId() {
+        if(this._ownerId != this._userId) {
+        
+        this._element.querySelector('.card__delete').style.display = "none";
+        }
     }
 
     _setEventListeners() {
@@ -59,7 +65,7 @@ export default class Card {
         this._element.querySelector('.card__title').textContent = this._name;
 
         this._setEventListeners();
-
+        this._getUserId();
         return this._element;
     };
 }

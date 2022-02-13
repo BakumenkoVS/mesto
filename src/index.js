@@ -32,18 +32,17 @@ api.getCard()
   })
   .catch(err => console.log(err))
 
-// Не могу понять как мне получить отсюда айди что бы его использовать 
-const userInfo = api.getUserInfo()
+//Получает данные о пользователе и его id записывает их в поля 
+api.getUserInfo()
   .then((data) => {
-    console.log(data)
-    userId = data;
-    console.log( data._id)
-    return data
+
+    userId = data._id;
+    formProfile.setUserInfo(data)
+    return userId = data._id
     
   })
-
   .catch(err => console.log(err))
-console.log(userId)
+// console.log(userId)
 
 
 
@@ -54,13 +53,14 @@ nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
 
 function creationCard(item) {
+  item.bd = userId;
   const card = new Card(cardsTemplate, item, handleCardClick, handleDeleteButtonClick);
-  item.owner = userId
-  console.log()
   const cardElement = card.getView();
   section.addItem(cardElement);
 
 }
+
+
 
 const section = new Section({ renderer: (data) => creationCard(data) }, '.elements');
 
@@ -70,58 +70,51 @@ function handleCardClick(name, link) {
   copyPopupImg.open(name, link);
 }
 
+const popupRemoval = new PopupWithForm({
+  popupSelector: '.popup_type_removal',
+  handleFormSubmit: () => {}
+})
 
+const formRemoval = document.getElementById('form__removal');
 
-
-// api.addCars()
-//   .then((data) => {
-//     const cardRender = new Section({
-//       items: data,
-//       renderer: (item) => {
-//         creationCard(item);
-
-//       }
-//     }, '.elements');
-//     cardRender.renderItems()
-//   })
-//   .catch(err => console.log(err))
-
-const handleDeleteButtonClick = (x) => {
-  api.deleteCard(x)
+const handleDeleteButtonClick = (id , element) => {
+  popupRemoval.open();
+  
+  formRemoval.addEventListener('submit', (evt) => {
+    
+    evt.preventDefault(evt);
+    api.deleteCard(id)
     .catch(err => console.log(`Ошибка удаления сообщения: ${err}`))
+    element.remove();
+        
+    popupRemoval.close();
+  })
+  
 };
-
+popupRemoval.setEventListeners()
 
 const cardAdd = new PopupWithForm({
   popupSelector: '.popup_type_img',
   handleFormSubmit: (data) => {
-
     api.addCards(data)
       .then(result => {
         creationCard(result);
-
-
-        // const card = new Card({cardsTemplate, result, handleCardClick, handleDeleteButtonClick () => {
-        //   api.deleteCard(card.getId())
-        //   .then(() => card.removeMessage())
-        //   .catch(err => console.log(`Ошибка удаления сообщения: ${err}`))
-        // }});
-        // const cardElement = card.getView();
-        // section.addItem(cardElement);
       })
       .catch(err => console.log(err))
   }
-
 });
 
-// cardRender.renderItems();
 cardAdd.setEventListeners();
 
 const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' });
 const profileChange = new PopupWithForm({
   popupSelector: '.popup_type_name',
-  handleFormSubmit: (formData) => {
-    formProfile.setUserInfo(formData);
+  handleFormSubmit: (data) => {
+    api.addUserInfo(data)
+      .then(result => {
+        formProfile.setUserInfo(result);
+      })
+      .catch(err => console.log(err))
   }
 });
 profileChange.setEventListeners();

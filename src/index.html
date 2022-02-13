@@ -20,10 +20,10 @@
          <img src="../images/avatar.png" alt="Фото человека" class="profile__avatar">
          <div class="profile__card">
             <div class="profile__information">
-               <h1 class="profile__title">Жак-Ив Кусто</h1>
+               <h1 class="profile__title"></h1>
                <button class="profile__edit" type="button"></button>
             </div>
-            <p class="profile__subtitle">Исследователь океана</p>
+            <p class="profile__subtitle"></p>
          </div>
          <button type="button" class="profile__button"></button>
       </section>
@@ -42,7 +42,7 @@
             <fieldset class="popup__information">
                <input id="name" type="text" class="popup__input popup__input_value_name" value="" name="name" required minlength="2" maxlength="40">
                <span id='name-error' class="error"></span>
-               <input id="profession" type="text" class="popup__input popup__input_value_profession" value="" name="profession" required minlength="2" maxlength="200">
+               <input id="profession" type="text" class="popup__input popup__input_value_profession" value="" name="about" required minlength="2" maxlength="200">
                <span id='profession-error' class="error"></span>
             </fieldset>
             <button type='submit' class="popup__button popup__button_type_name">
@@ -75,6 +75,18 @@
          <button class="popup__button-close" type="button"></button>
          <img src="#" alt="" class="popup__picture-img">
          <p class="popup__subtitle"></p>
+      </div>
+   </div>
+   <div class="popup popup_type_removal">
+      <div class="popup__overlay"></div>
+      <div class="popup__conteiner">
+         <h2 class="popup__title">Вы уверены?</h2>
+         <form name="removal" id="form__removal" class="popup__form">
+            <button class="popup__button-close" type="button"></button>
+            <button type='submit' class="popup__button popup__button_type_removal">
+               Да
+            </button>
+         </form>
       </div>
    </div>
    <template class="template">

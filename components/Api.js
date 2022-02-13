@@ -45,6 +45,22 @@ export default class Api {
          .then(this._handleResponse);
    }
 
+   addUserInfo(data) {
+      return fetch(`${this._address}users/me`, {
+         method: 'PATCH',
+         headers: {
+            authorization: this._token,
+            "Content-type": 'application/json'
+         },
+         body: JSON.stringify({
+            name: data.name,
+            about: data.about
+         })
+      })
+         .then(this._handleResponse);
+   }
+
+
    deleteCard(id) {
       return fetch(`${this._address}cards/${id}` , {
          method: 'DELETE',
@@ -53,6 +69,5 @@ export default class Api {
          }
       })
       .then(this._handleResponse)
-
    }
 }
