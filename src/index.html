@@ -17,7 +17,11 @@
    <main class="content">
       <section class="profile">
          <!-- <img src="<%=require('../images/avatar.png')%>" alt="Фото человека" class="profile__avatar"> -->
-         <img src="../images/avatar.png" alt="Фото человека" class="profile__avatar">
+         
+         <div class="profile__avatar-container">
+            <img src="" alt="Фото человека" class="profile__avatar">
+            <div class="profile__avatar-overlay"></div>
+         </div>
          <div class="profile__card">
             <div class="profile__information">
                <h1 class="profile__title"></h1>
@@ -89,13 +93,33 @@
          </form>
       </div>
    </div>
+   <div class="popup popup_type_avatar">
+      <div class="popup__overlay"></div>
+      <div class="popup__conteiner popup__conteiner_img">
+         <h2 class="popup__title">Новое место</h2>
+         <form name="" id="form__avatar" class="popup__avatar">
+            <button class="popup__button-close" type="button"></button>
+            <fieldset class="popup__information">
+               <input id="avatar" type="url" class="popup__input popup__input_value_image" placeholder='Ссылка на картинку' value="" name="avatar" required>
+               <span id='image-error' class="error"></span>
+            </fieldset>
+            <button type='submit' class="popup__button popup__button_type_avatar">
+               Сохранить
+            </button>
+         </form>
+      </div>
+   </div>
    <template class="template">
       <article class="card">
          <button class="card__delete" type="button"></button>
          <img src="#" alt="" class="card__img">
          <div class="card__info">
             <h2 class="card__title"></h2>
-            <button class="card__heart" type="button" aria-label="Лайк"></button>
+            <div>
+               <button class="card__heart" type="button" aria-label="Лайк"></button>
+               <p class="card__likes">1</p>
+            </div>
+            
          </div>
       </article>
    </template>

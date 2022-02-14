@@ -70,4 +70,27 @@ export default class Api {
       })
       .then(this._handleResponse)
    }
+
+   addCardLike(cardId) {
+      return fetch(`${this._address}cards/${cardId/likes}`, {
+         method: 'PUT',
+         headers: {
+            authorization: this._token
+         }
+      })
+         .then(this._handleResponse)
+   }
+
+   deleteCardLike(cardId) {
+      return fetch(`${this._address}cards/${cardId/likes}`, {
+         method: 'PUT',
+         headers: {
+            authorization: this._token
+         }
+      })
+         .then(this._handleResponse)
+   }
+
+   
+
 }

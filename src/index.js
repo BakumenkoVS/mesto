@@ -106,7 +106,7 @@ const cardAdd = new PopupWithForm({
 
 cardAdd.setEventListeners();
 
-const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' });
+const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' , avatar: '.profile__avatar'});
 const profileChange = new PopupWithForm({
   popupSelector: '.popup_type_name',
   handleFormSubmit: (data) => {

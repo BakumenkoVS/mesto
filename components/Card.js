@@ -5,9 +5,10 @@ export default class Card {
         this._name = item.name;
         this._link = item.link;
         this._id = item._id;
+        this._like = item.likes.length
         this._ownerId = item.owner._id;
         this._userId = item.bd;
-        
+        console.log(item.likes.length)
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;
         
@@ -60,10 +61,12 @@ export default class Card {
     getView() {
         this._element = this._getItem();
         this._cardImg = this._element.querySelector('.card__img');
+        this._likeText = this._element.querySelector('.card__likes');
+        this._likeText.textContent = this._like;
         this._cardImg.src = this._link;
         this._cardImg.alt = this._name;
+        
         this._element.querySelector('.card__title').textContent = this._name;
-
         this._setEventListeners();
         this._getUserId();
         return this._element;
