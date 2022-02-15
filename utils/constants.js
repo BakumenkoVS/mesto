@@ -7,6 +7,7 @@ const professionInput = document.querySelector('.popup__input_value_profession')
 const profileButton = document.querySelector('.profile__button');
 const formAdd = document.getElementById('form__add');
 const formName = document.getElementById('form__name');
+const formAvatar = document.getElementById('form__avatar');
 const cardsTemplate = '.template' ;
 
 const validationEnable = ({
@@ -28,5 +29,6 @@ export {
    validationEnable,
    formAdd,
    formName,
-   cardsTemplate
+   cardsTemplate,
+   formAvatar
 }

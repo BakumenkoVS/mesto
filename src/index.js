@@ -15,7 +15,9 @@ import {
   formName,
   validationEnable,
   cardsTemplate,
+  formAvatar
 } from "../utils/constants.js"
+import Popup from "../components/Popup.js";
 
 let userId = null;
 //Пробы  Api
@@ -35,23 +37,24 @@ api.getCard()
 //Получает данные о пользователе и его id записывает их в поля 
 api.getUserInfo()
   .then((data) => {
-
+    
     userId = data._id;
     formProfile.setUserInfo(data)
     return userId = data._id
     
   })
   .catch(err => console.log(err))
-// console.log(userId)
+
 
 
 
 
 const imgAddFormValidation = new FormValidator(validationEnable, formAdd);
 const nameChangeFormValidation = new FormValidator(validationEnable, formName);
+const avatarCangeFormValidation = new FormValidator(validationEnable, formAvatar)
 nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
-
+avatarCangeFormValidation.enableValidation();
 function creationCard(item) {
   item.bd = userId;
   const card = new Card(cardsTemplate, item, handleCardClick, handleDeleteButtonClick);
@@ -61,7 +64,7 @@ function creationCard(item) {
 }
 
 
-
+// const popupAvatar = new Popup('.popup_type_avatar');
 const section = new Section({ renderer: (data) => creationCard(data) }, '.elements');
 
 const copyPopupImg = new PopupWithImage('.popup_type_picture');
@@ -74,7 +77,7 @@ const popupRemoval = new PopupWithForm({
   popupSelector: '.popup_type_removal',
   handleFormSubmit: () => {}
 })
-
+const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' , avatar: '.profile__avatar'});
 const formRemoval = document.getElementById('form__removal');
 
 const handleDeleteButtonClick = (id , element) => {
@@ -93,6 +96,21 @@ const handleDeleteButtonClick = (id , element) => {
 };
 popupRemoval.setEventListeners()
 
+const addAvatars = new PopupWithForm({
+  popupSelector: '.popup_type_avatar',
+  handleFormSubmit: (data) => {
+    
+    api.addAvatar(data)
+      .then(result => {
+        
+        formProfile.setUserInfo(result);
+        
+      })
+      .catch(err => console.log(err))
+  }
+  
+});
+addAvatars.setEventListeners();
 const cardAdd = new PopupWithForm({
   popupSelector: '.popup_type_img',
   handleFormSubmit: (data) => {
@@ -106,7 +124,7 @@ const cardAdd = new PopupWithForm({
 
 cardAdd.setEventListeners();
 
-const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' , avatar: '.profile__avatar'});
+
 const profileChange = new PopupWithForm({
   popupSelector: '.popup_type_name',
   handleFormSubmit: (data) => {
@@ -134,4 +152,11 @@ profileButton.addEventListener('click', function () {
   cardAdd.open();
   imgAddFormValidation.resetError();
 });
+
+const zzz = document.querySelector('.profile__avatar-overlay');
+
+zzz.addEventListener('click', function () {
+  addAvatars.open();
+  avatarCangeFormValidation.resetError();
+})
 

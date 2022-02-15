@@ -8,7 +8,6 @@ export default class Card {
         this._like = item.likes.length
         this._ownerId = item.owner._id;
         this._userId = item.bd;
-        console.log(item.likes.length)
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;
         

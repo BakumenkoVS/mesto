@@ -72,7 +72,7 @@ export default class Api {
    }
 
    addCardLike(cardId) {
-      return fetch(`${this._address}cards/${cardId/likes}`, {
+      return fetch(`${this._address}cards/${cardId}/likes`, {
          method: 'PUT',
          headers: {
             authorization: this._token
@@ -82,13 +82,28 @@ export default class Api {
    }
 
    deleteCardLike(cardId) {
-      return fetch(`${this._address}cards/${cardId/likes}`, {
+      return fetch(`${this._address}cards/${cardId}/likes`, {
          method: 'PUT',
          headers: {
             authorization: this._token
          }
       })
          .then(this._handleResponse)
+   }
+
+   addAvatar(data) {
+      
+      return fetch(`${this._address}users/me/avatar`, {
+         method: 'PATCH',
+         headers: {
+            authorization: this._token,
+            "Content-type": 'application/json'
+         },
+         body: JSON.stringify({
+            avatar: data.avatar
+         })
+      })
+         .then(this._handleResponse);
    }
 
    

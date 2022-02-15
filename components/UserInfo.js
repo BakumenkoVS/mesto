@@ -21,9 +21,10 @@ export default class UserInfo {
    }
    //Метод получает объект со значениями имени и профессии и записывает их в  title и subtitle
    setUserInfo(formData) {
-      console.log(formData)
+      
       this._profileName.textContent = formData.name;
       this._profileProfession.textContent = formData.about;
       this._profileAvatar.src = formData.avatar;
+      
    };
 };

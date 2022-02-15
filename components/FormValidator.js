@@ -8,6 +8,7 @@ export default class FormValidator {
       this._errorClass = selectors.errorClass;
       this._formInputs = Array.from(this._form.querySelectorAll(this._inputSelector));
       this._submitButton = this._form.querySelector(this._submitButtonSelector);
+      
    }
    //Функция показа ошибки валидации
    _showError = (input, errorMessageText) => {
