@@ -19,7 +19,8 @@ import {
   avatarOpen,
   imgAddButton,
   avatarAddButton,
-  profileAddButton
+  profileAddButton,
+  formRemoval
 } from "../utils/constants.js"
 
 let userId = null;
@@ -51,7 +52,7 @@ api.getUserInfo()
 
 
 
-
+//Валидация форм
 const imgAddFormValidation = new FormValidator(validationEnable, formAdd);
 const nameChangeFormValidation = new FormValidator(validationEnable, formName);
 const avatarCangeFormValidation = new FormValidator(validationEnable, formAvatar)
@@ -83,23 +84,22 @@ const popupRemoval = new PopupWithForm({
   handleFormSubmit: () => {}
 })
 const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' , avatar: '.profile__avatar'});
-const formRemoval = document.getElementById('form__removal');
 
+
+//Функция удаления карточки 
 const handleDeleteButtonClick = (id , element) => {
   popupRemoval.open();
-  
   formRemoval.addEventListener('submit', (evt) => {
-    
     evt.preventDefault(evt);
     api.deleteCard(id)
     .catch(err => console.log(`Ошибка удаления сообщения: ${err}`))
     element.remove();
-        
     popupRemoval.close();
   })
   
 };
-popupRemoval.setEventListeners()
+popupRemoval.setEventListeners();
+
 //Доюавление аватарки
 const addAvatars = new PopupWithForm({
   popupSelector: '.popup_type_avatar',
@@ -107,9 +107,7 @@ const addAvatars = new PopupWithForm({
     avatarAddButton.textContent = 'Сохранение...';
     api.addAvatar(data)
       .then(result => {
-        
         formProfile.setUserInfo(result);
-        
       })
       .catch(err => console.log(err))
       .finally(() => avatarAddButton.textContent = 'Сохранить')
@@ -117,6 +115,7 @@ const addAvatars = new PopupWithForm({
   
 });
 addAvatars.setEventListeners();
+
 //Добавление карточки 
 const cardAdd = new PopupWithForm({
   popupSelector: '.popup_type_img',
@@ -150,7 +149,6 @@ profileChange.setEventListeners();
 
 //Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
 editActive.addEventListener('click', () => {
-
   const info = formProfile.getUserInfo();
   nameInput.value = info.inputName;
   professionInput.value = info.inputProfession;
