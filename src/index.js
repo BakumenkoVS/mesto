@@ -15,9 +15,12 @@ import {
   formName,
   validationEnable,
   cardsTemplate,
-  formAvatar
+  formAvatar,
+  avatarOpen,
+  imgAddButton,
+  avatarAddButton,
+  profileAddButton
 } from "../utils/constants.js"
-import Popup from "../components/Popup.js";
 
 let userId = null;
 //Пробы  Api
@@ -55,6 +58,8 @@ const avatarCangeFormValidation = new FormValidator(validationEnable, formAvatar
 nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
 avatarCangeFormValidation.enableValidation();
+
+//Функция создания карточки 
 function creationCard(item) {
   item.bd = userId;
   const card = new Card(cardsTemplate, item, handleCardClick, handleDeleteButtonClick);
@@ -64,7 +69,7 @@ function creationCard(item) {
 }
 
 
-// const popupAvatar = new Popup('.popup_type_avatar');
+
 const section = new Section({ renderer: (data) => creationCard(data) }, '.elements');
 
 const copyPopupImg = new PopupWithImage('.popup_type_picture');
@@ -95,11 +100,11 @@ const handleDeleteButtonClick = (id , element) => {
   
 };
 popupRemoval.setEventListeners()
-
+//Доюавление аватарки
 const addAvatars = new PopupWithForm({
   popupSelector: '.popup_type_avatar',
   handleFormSubmit: (data) => {
-    
+    avatarAddButton.textContent = 'Сохранение...';
     api.addAvatar(data)
       .then(result => {
         
@@ -107,32 +112,38 @@ const addAvatars = new PopupWithForm({
         
       })
       .catch(err => console.log(err))
+      .finally(() => avatarAddButton.textContent = 'Сохранить')
   }
   
 });
 addAvatars.setEventListeners();
+//Добавление карточки 
 const cardAdd = new PopupWithForm({
   popupSelector: '.popup_type_img',
   handleFormSubmit: (data) => {
+    imgAddButton.textContent = 'Сохранение...'
     api.addCards(data)
       .then(result => {
         creationCard(result);
       })
       .catch(err => console.log(err))
+      .finally(() => imgAddButton.textContent = 'Создать')
   }
 });
 
 cardAdd.setEventListeners();
 
-
+//изменение профиля 
 const profileChange = new PopupWithForm({
   popupSelector: '.popup_type_name',
   handleFormSubmit: (data) => {
+    profileAddButton.textContent = 'Сохранение...'
     api.addUserInfo(data)
       .then(result => {
         formProfile.setUserInfo(result);
       })
       .catch(err => console.log(err))
+      .finally(() => profileAddButton.textContent = 'Сохранить')
   }
 });
 profileChange.setEventListeners();
@@ -153,9 +164,9 @@ profileButton.addEventListener('click', function () {
   imgAddFormValidation.resetError();
 });
 
-const zzz = document.querySelector('.profile__avatar-overlay');
 
-zzz.addEventListener('click', function () {
+
+avatarOpen.addEventListener('click', function () {
   addAvatars.open();
   avatarCangeFormValidation.resetError();
 })

@@ -9,6 +9,10 @@ const formAdd = document.getElementById('form__add');
 const formName = document.getElementById('form__name');
 const formAvatar = document.getElementById('form__avatar');
 const cardsTemplate = '.template' ;
+const avatarOpen = document.querySelector('.profile__avatar-overlay');
+const imgAddButton = document.querySelector('.popup__button_type_img');
+const avatarAddButton = document.querySelector('.popup__button_type_avatar');
+const profileAddButton = document.querySelector('.popup__button_type_name');
 
 const validationEnable = ({
    inputSelector: '.popup__input',
@@ -30,5 +34,9 @@ export {
    formAdd,
    formName,
    cardsTemplate,
-   formAvatar
+   formAvatar,
+   avatarOpen,
+   imgAddButton,
+   avatarAddButton,
+   profileAddButton
 }
