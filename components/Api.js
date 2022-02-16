@@ -83,7 +83,7 @@ export default class Api {
 
    deleteCardLike(cardId) {
       return fetch(`${this._address}cards/${cardId}/likes`, {
-         method: 'PUT',
+         method: 'DELETE',
          headers: {
             authorization: this._token
          }

@@ -1,4 +1,4 @@
-// import './index.css';
+import './index.css';
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
@@ -23,6 +23,8 @@ import {
   formRemoval
 } from "../utils/constants.js"
 
+const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' , avatar: '.profile__avatar'});
+
 let userId = null;
 //Пробы  Api
 
@@ -30,26 +32,33 @@ const api = new Api({
   address: 'https://mesto.nomoreparties.co/v1/cohort-35/',
   token: '5c1fbf97-83e7-4354-8f50-5549f6898841'
 })
-//Accepts a data array and returns the drawn cards  
-api.getCard()
-  .then((data) => {
+// //Accepts a data array and returns the drawn cards  
+// api.getCard()
+//   .then((data) => {
 
-    section.renderItems(data)
-  })
-  .catch(err => console.log(err))
+//     section.renderItems(data)
+//   })
+//   .catch(err => console.log(err))
 
-//Получает данные о пользователе и его id записывает их в поля 
-api.getUserInfo()
-  .then((data) => {
+// //Получает данные о пользователе и его id записывает их в поля 
+// api.getUserInfo()
+//   .then((data) => {
     
-    userId = data._id;
-    formProfile.setUserInfo(data)
-    return userId = data._id
+//     userId = data._id;
+//     formProfile.setUserInfo(data)
+//     return userId = data._id
     
-  })
-  .catch(err => console.log(err))
-
-
+//   })
+  
+ 
+ 
+Promise.all([api.getCard(), api.getUserInfo()])
+.then(([dataCard, dataUser]) =>{
+  formProfile.setUserInfo(dataUser);
+  formProfile.giveUserId(dataUser._id)
+  section.renderItems(dataCard)
+})
+.catch(err => console.log(err))
 
 
 //Валидация форм
@@ -60,14 +69,42 @@ nameChangeFormValidation.enableValidation();
 imgAddFormValidation.enableValidation();
 avatarCangeFormValidation.enableValidation();
 
+
+ //Постановка лайка
+ const handleCardLike = (card) => {
+  if (card.isLiked) {
+    
+    
+    
+    api.deleteCardLike(card._id).then((data) => {
+      
+        card.addLike(data.likes);
+    }).catch((err) => console.log(err));
+      } else {
+    api.addCardLike(card._id).then((data) => {
+        card.addLike(data.likes);
+    }).catch((err) => console.log(err));
+}
+}
+
+
 //Функция создания карточки 
 function creationCard(item) {
+
   item.bd = userId;
-  const card = new Card(cardsTemplate, item, handleCardClick, handleDeleteButtonClick);
+  const card = new Card(cardsTemplate, item, handleCardClick, handleDeleteButtonClick, handleCardLike, formProfile.getUserId());
   const cardElement = card.getView();
   section.addItem(cardElement);
 
 }
+
+
+
+ 
+
+
+
+
 
 
 
@@ -83,7 +120,7 @@ const popupRemoval = new PopupWithForm({
   popupSelector: '.popup_type_removal',
   handleFormSubmit: () => {}
 })
-const formProfile = new UserInfo({ name: '.profile__title', profession: '.profile__subtitle' , avatar: '.profile__avatar'});
+
 
 
 //Функция удаления карточки 
@@ -146,6 +183,8 @@ const profileChange = new PopupWithForm({
   }
 });
 profileChange.setEventListeners();
+
+
 
 //Добавляем слушатель на кнопку эдит (открывает popup для изменения title и subtitle)
 editActive.addEventListener('click', () => {
