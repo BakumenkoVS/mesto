@@ -110,13 +110,14 @@ popupRemoval.setEventListeners();
 const addAvatars = new PopupWithForm({
   popupSelector: '.popup_type_avatar',
   handleFormSubmit: (data) => {
-    avatarAddButton.textContent = 'Сохранение...';
+    addAvatars.renderLoading(true);
     api.addAvatar(data)
       .then(result => {
         formProfile.setUserInfo(result);
+        addAvatars.close();
       })
       .catch(err => console.log(err))
-      .finally(() => avatarAddButton.textContent = 'Сохранить')
+      .finally(() => addAvatars.renderLoading(false))
   }
 
 });
@@ -126,13 +127,14 @@ addAvatars.setEventListeners();
 const cardAdd = new PopupWithForm({
   popupSelector: '.popup_type_img',
   handleFormSubmit: (data) => {
-    imgAddButton.textContent = 'Сохранение...'
+    cardAdd.renderLoading(true);
     api.addCards(data)
       .then(result => {
         creationCard(result);
+        cardAdd.close();
       })
       .catch(err => console.log(err))
-      .finally(() => imgAddButton.textContent = 'Создать')
+      .finally(() => cardAdd.renderLoading(false))
   }
 });
 cardAdd.setEventListeners();
@@ -141,13 +143,14 @@ cardAdd.setEventListeners();
 const profileChange = new PopupWithForm({
   popupSelector: '.popup_type_name',
   handleFormSubmit: (data) => {
-    profileAddButton.textContent = 'Сохранение...'
+    profileChange.renderLoading(true);
     api.addUserInfo(data)
       .then(result => {
         formProfile.setUserInfo(result);
+        profileChange.close();
       })
       .catch(err => console.log(err))
-      .finally(() => profileAddButton.textContent = 'Сохранить')
+      .finally(() => profileChange.renderLoading(false))
   }
 });
 profileChange.setEventListeners();
@@ -173,6 +176,6 @@ profileButton.addEventListener('click', function () {
 
 avatarOpen.addEventListener('click', function () {
   addAvatars.open();
-  avatarCangeFormValidation.resetError();
+  avatarCangeFormValidation.resetError(); 
 })
 

@@ -7,6 +7,7 @@ export default class PopupWithForm extends Popup {
       this._popupSelector = popupSelector;
       this._popupElement = document.querySelector(this._popupSelector);
       this._popupForm = this._popupElement.querySelector('.popup__form');
+      this._popupButton = this._popupForm.querySelector('.popup__button');
       this._handleFormSubmit = handleFormSubmit;
       this._inputList = this._popupElement.querySelectorAll('.popup__input');
 
@@ -20,11 +21,18 @@ export default class PopupWithForm extends Popup {
          evt.preventDefault();
          this._handleFormSubmit(this._getInputValues());
 
-         this._popupForm.reset();
-         super.close();
-
       })
    }
+
+   renderLoading(boolean) {
+      if(boolean){
+         this._popupButton.textContent = 'Сохранение...'
+      } 
+      else {
+         this._popupButton.textContent = 'Сохранить'
+      }
+   }
+
    //Метод реализует нахождение инпутов в форме найденной по слектору из параметров и возвращает 
    //объект с полученными данными 
    _getInputValues() {
