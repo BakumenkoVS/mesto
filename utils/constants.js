@@ -5,11 +5,14 @@ const editActive = document.querySelector('.profile__edit');
 const nameInput = document.querySelector('.popup__input_value_name');
 const professionInput = document.querySelector('.popup__input_value_profession');
 const profileButton = document.querySelector('.profile__button');
+
 const formAdd = document.getElementById('form__add');
 const formName = document.getElementById('form__name');
 const formAvatar = document.getElementById('form__avatar');
 const formRemoval = document.getElementById('form__removal');
-const cardsTemplate = '.template' ;
+
+const cardsTemplate = '.template';
+
 const avatarOpen = document.querySelector('.profile__avatar-overlay');
 const imgAddButton = document.querySelector('.popup__button_type_img');
 const avatarAddButton = document.querySelector('.popup__button_type_avatar');

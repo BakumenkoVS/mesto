@@ -1,6 +1,6 @@
 //Класс реализует изменение имени и профессии 
 export default class UserInfo {
-   constructor({ name, profession: about , avatar, id}) {
+   constructor({ name, profession: about, avatar}) {
 
       this._profileName = document.querySelector(name);
       this._profileProfession = document.querySelector(about);
@@ -19,7 +19,7 @@ export default class UserInfo {
    //Метод для реализации записи значения имени и профессии используется в событии открытия формы 
    getUserInfo() {
       const inputText = {
-         inputName: this._profileName.textContent ,
+         inputName: this._profileName.textContent,
          inputProfession: this._profileProfession.textContent
       }
 
@@ -27,10 +27,10 @@ export default class UserInfo {
    }
    //Метод получает объект со значениями имени и профессии и записывает их в  title и subtitle
    setUserInfo(formData) {
-      
+
       this._profileName.textContent = formData.name;
       this._profileProfession.textContent = formData.about;
       this._profileAvatar.src = formData.avatar;
-      
+
    };
 };

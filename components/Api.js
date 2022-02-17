@@ -62,13 +62,13 @@ export default class Api {
 
 
    deleteCard(id) {
-      return fetch(`${this._address}cards/${id}` , {
+      return fetch(`${this._address}cards/${id}`, {
          method: 'DELETE',
          headers: {
             authorization: this._token,
          }
       })
-      .then(this._handleResponse)
+         .then(this._handleResponse)
    }
 
    addCardLike(cardId) {
@@ -92,7 +92,7 @@ export default class Api {
    }
 
    addAvatar(data) {
-      
+
       return fetch(`${this._address}users/me/avatar`, {
          method: 'PATCH',
          headers: {
@@ -106,6 +106,6 @@ export default class Api {
          .then(this._handleResponse);
    }
 
-   
+
 
 }

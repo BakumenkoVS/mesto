@@ -8,15 +8,15 @@ export default class Card {
         this._id = item._id;
         this._ownerId = item.owner._id;
         this._userId = userID;
-        
         this._handleCardClick = handleCardClick;
         this._handleDeleteButtonClick = handleDeleteButtonClick;
         this._handleCardLike = handleCardLike;
-        this.isLiked = this._likes.some((z) => {return z._id === this._userId
-        } );
+        this.isLiked = this._likes.some((item) => {
+            return item._id === this._userId
+        });
 
 
-        
+
     }
     //метод находит template элемент дублирует его часть и возвращает ее 
     _getItem() {
@@ -29,29 +29,25 @@ export default class Card {
     //Метод для удаления карточек 
     _handleDeleteCard = () => {
         this._handleDeleteButtonClick(this._id, this._element);
-        
+
     }
 
     addLike(data) {
         this._like = data.length;
-        
+
         this._likeText.textContent = this._like;
         this.isLiked = !this.isLiked;
         this._putLike();
-        
-        
     }
 
 
-    //Метод для использования кнопки лайка 
+    //Метод делает активным или не активным отображение лайка  
     _putLike() {
-        if(!this.isLiked) {
-            
+        if (!this.isLiked) {
             this._buttonLike.classList.remove('card__heart_active');
-        } 
-        
+        }
+
         else {
-            
             this._buttonLike.classList.add('card__heart_active');
         }
     };
@@ -61,9 +57,9 @@ export default class Card {
     }
 
     _getUserId() {
-        if(this._ownerId != this._userId) {
-        
-        this._element.querySelector('.card__delete').style.display = "none";
+        if (this._ownerId != this._userId) {
+
+            this._element.querySelector('.card__delete').style.display = "none";
         }
     }
 
@@ -71,9 +67,7 @@ export default class Card {
         this._cardImg.addEventListener('click', this._openBig);
         this._element.querySelector('.card__delete').addEventListener('click', () => this._handleDeleteCard(this));
         this._buttonLike = this._element.querySelector('.card__heart');
-        
-        this._buttonLike.addEventListener('click',  () => this._handleCardLike(this));
-        
+        this._buttonLike.addEventListener('click', () => this._handleCardLike(this));
     };
 
     //Публичный метод возвращающий заполненную карточку 
@@ -84,7 +78,7 @@ export default class Card {
         this._likeText.textContent = this._likes.length
         this._cardImg.src = this._link;
         this._cardImg.alt = this._name;
-        
+
         this._element.querySelector('.card__title').textContent = this._name;
         this._setEventListeners();
         this._putLike();
