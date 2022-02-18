@@ -14,9 +14,6 @@ const formRemoval = document.getElementById('form__removal');
 const cardsTemplate = '.template';
 
 const avatarOpen = document.querySelector('.profile__avatar-overlay');
-const imgAddButton = document.querySelector('.popup__button_type_img');
-const avatarAddButton = document.querySelector('.popup__button_type_avatar');
-const profileAddButton = document.querySelector('.popup__button_type_name');
 
 
 const validationEnable = ({
@@ -41,8 +38,5 @@ export {
    cardsTemplate,
    formAvatar,
    avatarOpen,
-   imgAddButton,
-   avatarAddButton,
-   profileAddButton,
    formRemoval
 }

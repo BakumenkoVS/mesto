@@ -17,9 +17,6 @@ import {
   cardsTemplate,
   formAvatar,
   avatarOpen,
-  imgAddButton,
-  avatarAddButton,
-  profileAddButton,
   formRemoval
 } from "../utils/constants.js"
 
